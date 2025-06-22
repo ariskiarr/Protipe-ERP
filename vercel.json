@@ -3,10 +3,10 @@
   "version": 2,
   "public": true,
   "cleanUrls": true,
-  "trailingSlash": false,
-  "github": {
+  "trailingSlash": false,  "github": {
     "silent": true
-  },  "rewrites": [
+  },
+  "rewrites": [
     { "source": "/", "destination": "/home.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/sales", "destination": "/index-sales.html" },
