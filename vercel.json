@@ -8,7 +8,7 @@
     "silent": true
   },
   "rewrites": [
-    { "source": "/", "destination": "/login.html" },
+    { "source": "/", "destination": "/home.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/sales", "destination": "/index-sales.html" },
     { "source": "/warehouse", "destination": "/index-warehouse.html" },
