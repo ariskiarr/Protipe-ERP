@@ -45,28 +45,46 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-    </style>
-    <script>        // Check user role and redirect
+    </style>    <script>
+        // Check user role and redirect
         document.addEventListener('DOMContentLoaded', function() {
+            // Add a slight delay to ensure DOM is fully loaded
             setTimeout(function() {
-                const role = localStorage.getItem("ksteel-user-role") || "admin";
-                
-                // Determine if we're in a development environment
-                const isDev = window.location.hostname === "localhost" || 
-                              window.location.hostname === "127.0.0.1";
-                
-                // Use appropriate base path
-                const basePath = isDev ? "" : "/";
-                
-                switch(role) {
-                    case "sales":
-                        window.location.href = basePath + "index-sales.html";
-                        break;
-                    case "warehouse":
-                        window.location.href = basePath + "index-warehouse.html";
-                        break;
-                    default:
-                        window.location.href = basePath + "index.html";
+                try {
+                    // Check if localStorage is available
+                    let testKey = '__test__';
+                    localStorage.setItem(testKey, testKey);
+                    localStorage.removeItem(testKey);
+                    
+                    // Get role from localStorage or default to admin
+                    const role = localStorage.getItem("ksteel-user-role") || "admin";
+                    
+                    // Set default username if none exists
+                    if (!localStorage.getItem("ksteel-username")) {
+                        if (role === "sales") {
+                            localStorage.setItem("ksteel-username", "Staff Sales");
+                        } else if (role === "warehouse") {
+                            localStorage.setItem("ksteel-username", "Staff Gudang");
+                        } else {
+                            localStorage.setItem("ksteel-username", "Admin KSteel");
+                        }
+                    }
+                    
+                    // Use absolute paths for deployment
+                    switch(role) {
+                        case "sales":
+                            window.location.href = "/index-sales.html";
+                            break;
+                        case "warehouse":
+                            window.location.href = "/index-warehouse.html";
+                            break;
+                        default:
+                            window.location.href = "/index.html";
+                    }
+                } catch (e) {
+                    // If localStorage is not available or any other error
+                    console.error("Error accessing localStorage:", e);
+                    window.location.href = "/index.html";
                 }
             }, 1000); // Short delay for loader effect
         });
