@@ -6,12 +6,15 @@
   "trailingSlash": false,
   "github": {
     "silent": true
-  },
-  "rewrites": [
+  },  "rewrites": [
     { "source": "/", "destination": "/home.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/sales", "destination": "/index-sales.html" },
     { "source": "/warehouse", "destination": "/index-warehouse.html" },
-    { "source": "/(.*)", "destination": "/home.html" }
+    { "source": "/pages/:path*", "destination": "/pages/:path*" },
+    { "source": "/css/:path*", "destination": "/css/:path*" },
+    { "source": "/js/:path*", "destination": "/js/:path*" },
+    { "source": "/images/:path*", "destination": "/images/:path*" },
+    { "source": "/((?!css|js|images|pages).*)", "destination": "/home.html" }
   ]
 }
