@@ -1,0 +1,16 @@
+{
+  "name": "ksteel-erp",
+  "version": 2,
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "github": {
+    "silent": true
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/sales", "destination": "/index-sales.html" },
+    { "source": "/warehouse", "destination": "/index-warehouse.html" }
+  ]
+}

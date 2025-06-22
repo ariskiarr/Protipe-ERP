@@ -1,0 +1,16 @@
+{
+  "name": "ksteel-erp",
+  "version": "1.0.0",
+  "description": "ERP System for PT KSteel Nusantara",
+  "scripts": {
+    "dev": "serve",
+    "build": "echo 'No build step required'"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.0.0"
+  }
+}

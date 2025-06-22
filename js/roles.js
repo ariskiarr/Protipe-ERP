@@ -236,6 +236,17 @@ function getBasePath() {
   return "";
 }
 
+// Utility function to normalize URLs for hosted environments
+function getNormalizedUrl(url) {
+  // If we're on a hosted environment (like Vercel)
+  if (window.location.hostname !== "localhost" && 
+      !window.location.hostname.includes("127.0.0.1")) {
+    // Remove file extension for cleaner URLs in production
+    return url.replace(".html", "");
+  }
+  return url;
+}
+
 // Update header with user info based on role
 function updateUserInfo(role, username) {
   const userInfo = document.querySelector(".user-info");
@@ -279,16 +290,15 @@ document.addEventListener("DOMContentLoaded", function () {
 function switchRole(role, username) {
   localStorage.setItem("ksteel-user-role", role);
   localStorage.setItem("ksteel-username", username);
-
   // Redirect to appropriate dashboard
   switch (role) {
     case "sales":
-      window.location.href = "../index-sales.html";
+      window.location.href = window.location.pathname.includes("/pages/") ? "../index-sales.html" : "/index-sales.html";
       break;
     case "warehouse":
-      window.location.href = "../index-warehouse.html";
+      window.location.href = window.location.pathname.includes("/pages/") ? "../index-warehouse.html" : "/index-warehouse.html";
       break;
     default:
-      window.location.href = "../index.html";
+      window.location.href = window.location.pathname.includes("/pages/") ? "../index.html" : "/index.html";
   }
 }
