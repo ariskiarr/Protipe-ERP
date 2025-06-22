@@ -4,7 +4,7 @@
   "description": "ERP System for PT KSteel Nusantara",
   "scripts": {
     "dev": "serve",
-    "build": "echo 'No build step required'"
+    "build": "cp -r . ./public || echo 'Static site - build step skipped'"
   },
   "engines": {
     "node": ">=18.0.0"

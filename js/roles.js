@@ -290,15 +290,39 @@ document.addEventListener("DOMContentLoaded", function () {
 function switchRole(role, username) {
   localStorage.setItem("ksteel-user-role", role);
   localStorage.setItem("ksteel-username", username);
+  
+  // Get base URL depending on environment
+  const isHosted = window.location.hostname !== "localhost" && !window.location.hostname.includes("127.0.0.1");
+  const inPagesFolder = window.location.pathname.includes("/pages/");
+  
   // Redirect to appropriate dashboard
   switch (role) {
     case "sales":
-      window.location.href = window.location.pathname.includes("/pages/") ? "../index-sales.html" : "/index-sales.html";
+      // If hosted on Vercel and not in pages folder, use root path
+      if (isHosted && !inPagesFolder) {
+        window.location.href = "/index-sales.html";
+      } else if (inPagesFolder) {
+        window.location.href = "../index-sales.html";
+      } else {
+        window.location.href = "index-sales.html";
+      }
       break;
     case "warehouse":
-      window.location.href = window.location.pathname.includes("/pages/") ? "../index-warehouse.html" : "/index-warehouse.html";
+      if (isHosted && !inPagesFolder) {
+        window.location.href = "/index-warehouse.html";
+      } else if (inPagesFolder) {
+        window.location.href = "../index-warehouse.html";
+      } else {
+        window.location.href = "index-warehouse.html";
+      }
       break;
     default:
-      window.location.href = window.location.pathname.includes("/pages/") ? "../index.html" : "/index.html";
+      if (isHosted && !inPagesFolder) {
+        window.location.href = "/index.html";
+      } else if (inPagesFolder) {
+        window.location.href = "../index.html";
+      } else {
+        window.location.href = "index.html";
+      }
   }
 }

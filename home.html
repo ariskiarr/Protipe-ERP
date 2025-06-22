@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSteel ERP - Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f7fa;
+            background-image: linear-gradient(
+                135deg,
+                rgba(0, 51, 102, 0.95),
+                rgba(0, 51, 102, 0.8)
+            ),
+            url("images/bg-pattern.png");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        // Check user role and redirect
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const role = localStorage.getItem("ksteel-user-role") || "admin";
+                
+                switch(role) {
+                    case "sales":
+                        window.location.href = "/index-sales.html";
+                        break;
+                    case "warehouse":
+                        window.location.href = "/index-warehouse.html";
+                        break;
+                    default:
+                        window.location.href = "/index.html";
+                }
+            }, 1000); // Short delay for loader effect
+        });
+    </script>
+</head>
+<body>
+    <div class="loader">
+        <div class="spinner"></div>
+        <h1>KSteel ERP</h1>
+        <p>Loading your dashboard...</p>
+    </div>
+</body>
+</html>
