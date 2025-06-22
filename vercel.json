@@ -8,17 +8,14 @@
     "silent": true
   },
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
+    { "source": "/", "destination": "/home.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/sales", "destination": "/index-sales.html" },
-    { "source": "/warehouse", "destination": "/index-warehouse.html" }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/pages/(.*)", "dest": "/pages/$1" },
-    { "src": "/js/(.*)", "dest": "/js/$1" },
-    { "src": "/css/(.*)", "dest": "/css/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-    { "src": "/(.*)", "status": 404, "dest": "/index.html" }
+    { "source": "/warehouse", "destination": "/index-warehouse.html" },
+    { "source": "/pages/:path*", "destination": "/pages/:path*" },
+    { "source": "/js/:path*", "destination": "/js/:path*" },
+    { "source": "/css/:path*", "destination": "/css/:path*" },
+    { "source": "/images/:path*", "destination": "/images/:path*" },
+    { "source": "/(.*)", "destination": "/home.html" }
   ]
 }

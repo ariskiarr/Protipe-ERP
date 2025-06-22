@@ -47,21 +47,27 @@
             100% { transform: rotate(360deg); }
         }
     </style>
-    <script>
-        // Check user role and redirect
+    <script>        // Check user role and redirect
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 const role = localStorage.getItem("ksteel-user-role") || "admin";
                 
+                // Determine if we're in a development environment
+                const isDev = window.location.hostname === "localhost" || 
+                              window.location.hostname === "127.0.0.1";
+                
+                // Use appropriate base path
+                const basePath = isDev ? "" : "/";
+                
                 switch(role) {
                     case "sales":
-                        window.location.href = "/index-sales.html";
+                        window.location.href = basePath + "index-sales.html";
                         break;
                     case "warehouse":
-                        window.location.href = "/index-warehouse.html";
+                        window.location.href = basePath + "index-warehouse.html";
                         break;
                     default:
-                        window.location.href = "/index.html";
+                        window.location.href = basePath + "index.html";
                 }
             }, 1000); // Short delay for loader effect
         });
