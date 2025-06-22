@@ -8,14 +8,10 @@
     "silent": true
   },
   "rewrites": [
-    { "source": "/", "destination": "/home.html" },
+    { "source": "/", "destination": "/login.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/sales", "destination": "/index-sales.html" },
     { "source": "/warehouse", "destination": "/index-warehouse.html" },
-    { "source": "/pages/:path*", "destination": "/pages/:path*" },
-    { "source": "/js/:path*", "destination": "/js/:path*" },
-    { "source": "/css/:path*", "destination": "/css/:path*" },
-    { "source": "/images/:path*", "destination": "/images/:path*" },
     { "source": "/(.*)", "destination": "/home.html" }
   ]
 }

@@ -1,0 +1,6 @@
+/  /home.html  200
+/login  /login.html  200
+/admin  /index.html  200
+/sales  /index-sales.html  200
+/warehouse  /index-warehouse.html  200
+/*  /404.html  404
