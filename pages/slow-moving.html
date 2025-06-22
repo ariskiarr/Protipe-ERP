@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barang Slow-Moving - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html" class="sidebar-logo">
+                <img src="../images/logo.svg" alt="KSteel Logo">
+                <span>KSteel ERP</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <!-- Menu items will be dynamically populated based on role -->
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-right">
+                <div class="header-icons">
+                    <div class="header-icon">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge">3</div>
+                    </div>
+                    <div class="header-icon">
+                        <i class="fas fa-envelope"></i>
+                        <div class="notification-badge">2</div>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <!-- User info will be dynamically populated -->
+                </div>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="page-container">
+            <h1 class="page-title">Barang Slow-Moving</h1>
+            
+            <!-- Full width chart card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Statistik Barang Slow-Moving</h2>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative; height:500px; width:100%; max-width: 900px; margin: 0 auto;">
+                        <canvas id="slowMovingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+              <div style="margin-top: 20px;">
+                <!-- Slow Moving Value Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Nilai Barang Slow-Moving</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="enhanced-stat-cards">
+                            <div class="enhanced-stat-card">
+                                <div class="stat-card-info">
+                                    <h3>Total Nilai</h3>
+                                    <h2>Rp 458,7 Juta</h2>
+                                    <p>24% dari nilai persediaan</p>
+                                </div>
+                                <div class="stat-card-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="enhanced-stat-cards" style="margin-top: 20px;">
+                            <div class="enhanced-stat-card warning">
+                                <div class="stat-card-info">
+                                    <h3>Total Barang</h3>
+                                    <h2>28 SKU</h2>
+                                    <p>17% dari total SKU</p>
+                                </div>
+                                <div class="stat-card-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="alert alert-info" style="margin-top: 20px; width: 100%;">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Barang dikategorikan slow-moving apabila tidak ada pergerakan selama 90 hari terakhir.</span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <!-- Slow Moving Items List -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Daftar Barang Slow-Moving</h2>
+                    <div>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary" id="exportExcelBtn">
+                                <i class="fas fa-file-excel"></i> Export Excel
+                            </button>
+                            <button class="btn btn-outline-primary" id="printReportBtn">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="filter-section">
+                        <div class="input-group">                            <input type="text" class="form-control" placeholder="Cari barang..." id="searchInput">
+                            <button class="btn btn-outline-primary" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="filter-group">
+                            <div class="input-group">
+                                <select class="form-control" id="categoryFilter">
+                                    <option value="">Semua Kategori</option>
+                                    <option value="Besi">Besi</option>
+                                    <option value="Pipa">Pipa</option>
+                                    <option value="Plat">Plat</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select class="form-control" id="ageFilter">
+                                    <option value="">Semua Umur</option>
+                                    <option value="90-180">90-180 hari</option>
+                                    <option value="181-365">181-365 hari</option>
+                                    <option value=">365"> >365 hari</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-outline-primary" type="button">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Barang</th>
+                                    <th>Kategori</th>
+                                    <th>Stok</th>
+                                    <th>Nilai Stok</th>
+                                    <th>Umur Stok</th>
+                                    <th>Terakhir Bergerak</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>STL-012</td>
+                                    <td>Besi WF 350x175</td>
+                                    <td>Besi</td>
+                                    <td>45 Batang</td>
+                                    <td>Rp 67,5 Juta</td>
+                                    <td>217 hari</td>
+                                    <td>22-11-2024</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewItem('STL-012')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-018</td>
+                                    <td>Plat Stainless 3mm</td>
+                                    <td>Plat</td>
+                                    <td>65 Lembar</td>
+                                    <td>Rp 97,5 Juta</td>
+                                    <td>186 hari</td>
+                                    <td>25-12-2024</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewItem('STL-018')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-025</td>
+                                    <td>Pipa Galvanis 6"</td>
+                                    <td>Pipa</td>
+                                    <td>120 Batang</td>
+                                    <td>Rp 84,0 Juta</td>
+                                    <td>165 hari</td>
+                                    <td>08-01-2025</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewItem('STL-025')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-031</td>
+                                    <td>Besi Hollow 40x40</td>
+                                    <td>Besi</td>
+                                    <td>200 Batang</td>
+                                    <td>Rp 60,0 Juta</td>
+                                    <td>132 hari</td>
+                                    <td>10-02-2025</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewItem('STL-031')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-042</td>
+                                    <td>Plat Bordes 5mm</td>
+                                    <td>Plat</td>
+                                    <td>50 Lembar</td>
+                                    <td>Rp 87,5 Juta</td>
+                                    <td>124 hari</td>
+                                    <td>18-02-2025</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewItem('STL-042')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-056</td>
+                                    <td>Pipa Hitam 4"</td>
+                                    <td>Pipa</td>
+                                    <td>75 Batang</td>
+                                    <td>Rp 62,2 Juta</td>
+                                    <td>108 hari</td>
+                                    <td>06-03-2025</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" onclick="viewItem('STL-056')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-container">
+                        <div class="pagination-info">Menampilkan 1-6 dari 28 entri</div>
+                        <div class="pagination">
+                            <button class="page-btn" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">4</button>
+                            <button class="page-btn">5</button>
+                            <button class="page-btn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Rekomendasi Tindakan</h2>
+                </div>
+                <div class="card-body">
+                    <div class="action-cards">
+                        <div class="action-card">
+                            <div class="action-card-icon">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div class="action-card-content">
+                                <h3>Diskon Khusus</h3>
+                                <p>Tawarkan diskon khusus untuk produk-produk slow-moving kepada pelanggan tetap.</p>
+                                <button class="btn btn-outline-primary btn-sm">Buat Promosi</button>
+                            </div>
+                        </div>
+                        <div class="action-card">
+                            <div class="action-card-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="action-card-content">
+                                <h3>Bundling Produk</h3>
+                                <p>Gabungkan produk slow-moving dengan produk fast-moving dalam paket bundling.</p>
+                                <button class="btn btn-outline-primary btn-sm">Buat Bundling</button>
+                            </div>
+                        </div>
+                        <div class="action-card">
+                            <div class="action-card-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            <div class="action-card-content">
+                                <h3>Realokasi Stok</h3>
+                                <p>Pindahkan stok ke gudang dengan tingkat permintaan lebih tinggi.</p>
+                                <button class="btn btn-outline-primary btn-sm">Rencana Realokasi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- View Item Modal -->
+    <div id="viewItemModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detail Barang Slow-Moving</h2>
+                <span class="close-modal" onclick="closeViewItemModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <div class="detail-row">
+                        <div class="detail-label">Kode Barang:</div>
+                        <div class="detail-value" id="viewItemCode">STL-012</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Nama Barang:</div>
+                        <div class="detail-value" id="viewItemName">Besi WF 350x175</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Kategori:</div>
+                        <div class="detail-value" id="viewItemCategory">Besi</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Stok Saat Ini:</div>
+                        <div class="detail-value" id="viewItemStock">45 Batang</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Nilai Stok:</div>
+                        <div class="detail-value" id="viewItemValue">Rp 67,5 Juta</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Umur Stok:</div>
+                        <div class="detail-value" id="viewItemAge">217 hari</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Terakhir Bergerak:</div>
+                        <div class="detail-value" id="viewItemLastMovement">22-11-2024</div>
+                    </div>
+                </div>
+                
+                <h3>Riwayat Pergerakan</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Jenis</th>
+                                <th>Dokumen</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="viewItemMovements">
+                            <tr>
+                                <td>22-11-2024</td>
+                                <td>Keluar</td>
+                                <td>INV-20240258</td>
+                                <td>-10 Batang</td>
+                            </tr>
+                            <tr>
+                                <td>15-10-2024</td>
+                                <td>Keluar</td>
+                                <td>INV-20240187</td>
+                                <td>-5 Batang</td>
+                            </tr>
+                            <tr>
+                                <td>30-08-2024</td>
+                                <td>Masuk</td>
+                                <td>PO-20240095</td>
+                                <td>+60 Batang</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>Rekomendasi Tindakan</h3>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="createPromotion('STL-012')">
+                        <i class="fas fa-tags"></i> Buat Promosi
+                    </button>
+                    <button class="btn btn-info" onclick="createBundle('STL-012')">
+                        <i class="fas fa-box"></i> Bundling
+                    </button>
+                    <button class="btn btn-warning" onclick="recommendRelocation('STL-012')">
+                        <i class="fas fa-warehouse"></i> Realokasi
+                    </button>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeViewItemModal()">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+    <script>        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure chart container is properly sized
+            const chartContainer = document.querySelector('.chart-container');
+            if (chartContainer) {
+                // Set minimum height for better visibility
+                if (window.innerWidth > 768) {
+                    chartContainer.style.minHeight = '500px';
+                } else {
+                    chartContainer.style.minHeight = '400px';
+                }
+            }
+            
+            // Initialize charts
+            const slowMovingCtx = document.getElementById('slowMovingChart').getContext('2d');
+            const slowMovingChart = new Chart(slowMovingCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['90-180 hari', '181-365 hari', '>365 hari'],
+                    datasets: [{
+                        label: 'Jumlah Item',
+                        data: [14, 8, 6],
+                        backgroundColor: [
+                            'rgba(255, 193, 7, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(244, 67, 54, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(255, 152, 0, 1)',
+                            'rgba(244, 67, 54, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribusi Barang Slow-Moving Berdasarkan Umur',
+                            font: {
+                                size: 18
+                            },
+                            padding: 20
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            left: 20,
+                            right: 20,
+                            top: 20,
+                            bottom: 20
+                        }
+                    },                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah SKU',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14
+                                },
+                                padding: 10
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Kategori Umur',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14
+                                },
+                                padding: 10
+                            }
+                        }
+                    },
+                    barThickness: 80
+                }
+            });
+            
+            // Button event handlers
+            document.getElementById('exportExcelBtn').addEventListener('click', function() {
+                alert('Mengekspor data ke Excel...');
+            });
+            
+            document.getElementById('printReportBtn').addEventListener('click', function() {
+                alert('Menyiapkan laporan untuk dicetak...');
+            });
+        });
+        
+        function viewItem(itemCode) {
+            // In a real app, you'd fetch data from an API based on itemCode
+            document.getElementById('viewItemModal').style.display = 'block';
+            document.getElementById('viewItemCode').textContent = itemCode;
+        }
+        
+        function closeViewItemModal() {
+            document.getElementById('viewItemModal').style.display = 'none';
+        }
+        
+        function createPromotion(itemCode) {
+            alert(`Membuat promosi untuk barang dengan kode: ${itemCode}`);
+        }
+        
+        function createBundle(itemCode) {
+            alert(`Membuat bundling untuk barang dengan kode: ${itemCode}`);
+        }
+        
+        function recommendRelocation(itemCode) {
+            alert(`Membuat rekomendasi relokasi untuk barang dengan kode: ${itemCode}`);
+        }
+    </script>
+</body>
+</html>

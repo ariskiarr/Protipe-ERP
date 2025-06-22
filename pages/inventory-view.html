@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lihat Stok - Staff Sales - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index-sales.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">4</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <!-- User info will be dynamically populated -->
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Lihat Stok</h1>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Daftar Barang & Stok</h2>
+            <div>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Cari barang..."
+                  id="searchInput"
+                />
+                <button class="btn btn-outline-primary">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Filter Row -->
+            <div
+              style="
+                margin-bottom: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                align-items: flex-end;
+              "
+            >
+              <div
+                class="form-group"
+                style="margin-bottom: 0; min-width: 200px"
+              >
+                <label class="form-label">Kategori</label>
+                <select class="form-select">
+                  <option value="">Semua Kategori</option>
+                  <option value="besi-beton">Besi Beton</option>
+                  <option value="besi-siku">Besi Siku</option>
+                  <option value="besi-hollow">Besi Hollow</option>
+                  <option value="besi-pipa">Pipa Besi</option>
+                  <option value="plat">Plat</option>
+                </select>
+              </div>
+              <div
+                class="form-group"
+                style="margin-bottom: 0; min-width: 200px"
+              >
+                <label class="form-label">Ketersediaan</label>
+                <select class="form-select">
+                  <option value="">Semua</option>
+                  <option value="available">Tersedia</option>
+                  <option value="low">Stok Menipis</option>
+                  <option value="out">Tidak Tersedia</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" style="height: 40px">
+                Filter
+              </button>
+              <button class="btn btn-secondary" style="height: 40px">
+                Reset
+              </button>
+            </div>
+
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Kode</th>
+                    <th>Nama Barang</th>
+                    <th>Kategori</th>
+                    <th>Stok</th>
+                    <th>Satuan</th>
+                    <th>Status</th>
+                    <th>Harga</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>STL-001</td>
+                    <td>Besi Beton 10mm</td>
+                    <td>Besi Beton</td>
+                    <td>320</td>
+                    <td>Batang</td>
+                    <td>
+                      <span class="stock-indicator stock-high"></span> Tersedia
+                    </td>
+                    <td>Rp 120.000</td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-primary detail-btn"
+                        data-item-code="STL-001"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>STL-002</td>
+                    <td>Besi Beton 12mm</td>
+                    <td>Besi Beton</td>
+                    <td>25</td>
+                    <td>Batang</td>
+                    <td>
+                      <span class="stock-indicator stock-low"></span> Hampir
+                      Habis
+                    </td>
+                    <td>Rp 175.000</td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-primary detail-btn"
+                        data-item-code="STL-002"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>STL-003</td>
+                    <td>Besi Siku 40x40</td>
+                    <td>Besi Siku</td>
+                    <td>150</td>
+                    <td>Batang</td>
+                    <td>
+                      <span class="stock-indicator stock-medium"></span>
+                      Tersedia
+                    </td>
+                    <td>Rp 165.000</td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-primary detail-btn"
+                        data-item-code="STL-003"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>STL-004</td>
+                    <td>Besi UNP 50x38</td>
+                    <td>Besi UNP</td>
+                    <td>85</td>
+                    <td>Batang</td>
+                    <td>
+                      <span class="stock-indicator stock-medium"></span>
+                      Tersedia
+                    </td>
+                    <td>Rp 380.000</td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-primary detail-btn"
+                        data-item-code="STL-004"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>STL-005</td>
+                    <td>Plat 2mm</td>
+                    <td>Plat</td>
+                    <td>45</td>
+                    <td>Lembar</td>
+                    <td>
+                      <span class="stock-indicator stock-medium"></span>
+                      Tersedia
+                    </td>
+                    <td>Rp 450.000</td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-primary detail-btn"
+                        data-item-code="STL-005"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>STL-006</td>
+                    <td>Pipa Besi 2"</td>
+                    <td>Pipa Besi</td>
+                    <td>0</td>
+                    <td>Batang</td>
+                    <td>
+                      <span class="stock-indicator stock-zero"></span> Habis
+                    </td>
+                    <td>Rp 215.000</td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-primary detail-btn"
+                        data-item-code="STL-006"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <button class="btn btn-sm btn-outline-primary">&laquo;</button>
+              <button class="btn btn-sm btn-primary">1</button>
+              <button class="btn btn-sm btn-outline-primary">2</button>
+              <button class="btn btn-sm btn-outline-primary">3</button>
+              <button class="btn btn-sm btn-outline-primary">&raquo;</button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="margin-top: 20px; font-style: italic; color: var(--dark-gray)"
+        >
+          <p>
+            * Catatan: Sebagai Staff Sales, Anda hanya dapat melihat informasi
+            stok untuk membantu proses penjualan. Untuk pembaruan stok atau
+            perubahan lainnya, silahkan hubungi Staff Gudang.
+          </p>
+        </div>
+
+        <!-- Faktur Penjualan yang Perlu Surat Jalan -->
+        <div class="card" style="margin-top: 30px">
+          <div class="card-header">
+            <h2 class="card-title">Faktur Penjualan yang Perlu Surat Jalan</h2>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>No. Faktur</th>
+                    <th>Pelanggan</th>
+                    <th>Tanggal</th>
+                    <th>Total Item</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>INV-20250003</td>
+                    <td>PT Sejahtera Makmur</td>
+                    <td>22-06-2025</td>
+                    <td>2 barang</td>
+                    <td>
+                      <button
+                        class="btn btn-accent create-shipping-btn"
+                        data-invoice="INV-20250003"
+                        data-customer="PT Sejahtera Makmur"
+                      >
+                        <i class="fas fa-truck"></i> Buat Surat Jalan
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-20250001</td>
+                    <td>PT Maju Bersama</td>
+                    <td>20-06-2025</td>
+                    <td>3 barang</td>
+                    <td>
+                      <button
+                        class="btn btn-accent create-shipping-btn"
+                        data-invoice="INV-20250001"
+                        data-customer="PT Maju Bersama"
+                      >
+                        <i class="fas fa-truck"></i> Buat Surat Jalan
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+    <script src="../js/modals.js"></script>
+
+    <!-- Modal Buat Surat Jalan -->
+    <div class="modal" id="createShippingModal">
+      <div class="modal-content" style="max-width: 700px">
+        <div class="modal-header">
+          <h3 class="modal-title">Buat Surat Jalan</h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="shippingForm">
+            <div class="form-group">
+              <label class="form-label">Nomor Faktur</label>
+              <input
+                type="text"
+                class="form-control"
+                id="invoiceNumber"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Pelanggan</label>
+              <input
+                type="text"
+                class="form-control"
+                id="customerName"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tanggal Pengiriman</label>
+              <input
+                type="date"
+                class="form-control"
+                id="shippingDate"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Kurir / Pengirim</label>
+              <select class="form-select" id="courier" required>
+                <option value="">-- Pilih Kurir --</option>
+                <option value="internal">Kurir Internal</option>
+                <option value="jne">JNE</option>
+                <option value="tiki">TIKI</option>
+                <option value="pos">POS Indonesia</option>
+                <option value="sicepat">SiCepat</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Keterangan Pengiriman</label>
+              <textarea
+                class="form-control"
+                id="shippingNotes"
+                rows="3"
+                placeholder="Tambahkan catatan untuk pengiriman (opsional)"
+              ></textarea>
+            </div>
+
+            <div class="card" style="margin: 20px 0">
+              <div class="card-header">
+                <h4 class="card-title">Daftar Item</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-container">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Kode</th>
+                        <th>Nama Barang</th>
+                        <th>Jumlah</th>
+                        <th>Satuan</th>
+                      </tr>
+                    </thead>
+                    <tbody id="shippingItemsList">
+                      <!-- Item list will be populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary close-modal">Batal</button>
+          <button class="btn btn-primary" id="submitShippingBtn">
+            Buat Surat Jalan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Detail Barang -->
+    <div class="modal" id="itemDetailModal">
+      <div class="modal-content" style="max-width: 600px">
+        <div class="modal-header">
+          <h3 class="modal-title">Detail Barang</h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="item-detail-container">
+            <div class="form-group">
+              <label class="form-label">Kode Barang</label>
+              <input
+                type="text"
+                class="form-control"
+                id="detailItemCode"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nama Barang</label>
+              <input
+                type="text"
+                class="form-control"
+                id="detailItemName"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Kategori</label>
+              <input
+                type="text"
+                class="form-control"
+                id="detailItemCategory"
+                readonly
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label">Stok Tersedia</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="detailItemStock"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label">Satuan</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="detailItemUnit"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Harga</label>
+              <input
+                type="text"
+                class="form-control"
+                id="detailItemPrice"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Deskripsi</label>
+              <textarea
+                class="form-control"
+                id="detailItemDescription"
+                rows="3"
+                readonly
+              ></textarea>
+            </div>
+
+            <div class="card" style="margin-top: 15px">
+              <div class="card-header">
+                <h4 class="card-title">Riwayat Stok</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-container">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Tanggal</th>
+                        <th>Tipe</th>
+                        <th>Jumlah</th>
+                        <th>Keterangan</th>
+                      </tr>
+                    </thead>
+                    <tbody id="stockHistoryList">
+                      <!-- Stock history will be populated dynamically -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary close-modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/modals.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the modals if initModals function exists
+        if (typeof initModals === "function") {
+          initModals();
+        }
+
+        // === ITEM DETAIL MODAL FUNCTIONALITY ===
+        // Add event listeners to detail buttons (eye icon)
+        const detailBtns = document.querySelectorAll(".detail-btn");
+        detailBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const itemCode = this.getAttribute("data-item-code");
+            showItemDetail(itemCode);
+          });
+        });
+
+        function showItemDetail(itemCode) {
+          // In a real app, you'd fetch this data from a database
+          // Mock data for demonstration
+          const itemsData = {
+            "STL-001": {
+              name: "Besi Beton 10mm",
+              category: "Besi Beton",
+              stock: 320,
+              unit: "Batang",
+              price: "Rp 120.000",
+              description:
+                "Besi beton dengan diameter 10mm, panjang standar 12 meter. Besi beton polos untuk konstruksi rumah dan bangunan komersial.",
+              history: [
+                {
+                  date: "21-06-2025",
+                  type: "Masuk",
+                  qty: 50,
+                  note: "Pengadaan bulanan",
+                },
+                {
+                  date: "18-06-2025",
+                  type: "Keluar",
+                  qty: 12,
+                  note: "INV-20250002",
+                },
+                {
+                  date: "15-06-2025",
+                  type: "Keluar",
+                  qty: 8,
+                  note: "INV-20250001",
+                },
+                {
+                  date: "10-06-2025",
+                  type: "Masuk",
+                  qty: 100,
+                  note: "Pengadaan bulanan",
+                },
+              ],
+            },
+            "STL-002": {
+              name: "Besi Beton 12mm",
+              category: "Besi Beton",
+              stock: 25,
+              unit: "Batang",
+              price: "Rp 175.000",
+              description:
+                "Besi beton dengan diameter 12mm, panjang standar 12 meter. Lebih kuat dari besi 10mm untuk konstruksi menengah dan berat.",
+              history: [
+                {
+                  date: "21-06-2025",
+                  type: "Keluar",
+                  qty: 15,
+                  note: "INV-20250003",
+                },
+                {
+                  date: "15-06-2025",
+                  type: "Masuk",
+                  qty: 40,
+                  note: "Pengadaan bulanan",
+                },
+              ],
+            },
+            "STL-003": {
+              name: "Besi Siku 40x40",
+              category: "Besi Siku",
+              stock: 150,
+              unit: "Batang",
+              price: "Rp 165.000",
+              description:
+                "Besi siku dengan ukuran 40x40mm, ketebalan 4mm, panjang standar 6 meter.",
+              history: [
+                {
+                  date: "22-06-2025",
+                  type: "Keluar",
+                  qty: 10,
+                  note: "INV-20250003",
+                },
+                {
+                  date: "18-06-2025",
+                  type: "Masuk",
+                  qty: 50,
+                  note: "Pengadaan bulanan",
+                },
+                {
+                  date: "12-06-2025",
+                  type: "Keluar",
+                  qty: 5,
+                  note: "INV-20250001",
+                },
+              ],
+            },
+            "STL-004": {
+              name: "Besi UNP 50x38",
+              category: "Besi UNP",
+              stock: 85,
+              unit: "Batang",
+              price: "Rp 380.000",
+              description:
+                "Besi UNP (kanal U) dengan ukuran 50x38mm, ketebalan 5mm, panjang standar 6 meter.",
+              history: [
+                {
+                  date: "20-06-2025",
+                  type: "Masuk",
+                  qty: 30,
+                  note: "Pengadaan bulanan",
+                },
+                {
+                  date: "17-06-2025",
+                  type: "Keluar",
+                  qty: 5,
+                  note: "INV-20250002",
+                },
+              ],
+            },
+            "STL-005": {
+              name: "Plat 2mm",
+              category: "Plat",
+              stock: 45,
+              unit: "Lembar",
+              price: "Rp 450.000",
+              description:
+                "Plat besi dengan ketebalan 2mm, ukuran standar 120x240cm.",
+              history: [
+                {
+                  date: "22-06-2025",
+                  type: "Keluar",
+                  qty: 3,
+                  note: "INV-20250003",
+                },
+                {
+                  date: "19-06-2025",
+                  type: "Masuk",
+                  qty: 20,
+                  note: "Pengadaan bulanan",
+                },
+                {
+                  date: "15-06-2025",
+                  type: "Keluar",
+                  qty: 2,
+                  note: "INV-20250001",
+                },
+              ],
+            },
+            "STL-006": {
+              name: 'Pipa Besi 2"',
+              category: "Pipa Besi",
+              stock: 0,
+              unit: "Batang",
+              price: "Rp 215.000",
+              description:
+                "Pipa besi dengan diameter 2 inci, ketebalan 1.7mm, panjang standar 6 meter.",
+              history: [
+                {
+                  date: "18-06-2025",
+                  type: "Keluar",
+                  qty: 10,
+                  note: "INV-20250002",
+                },
+                {
+                  date: "15-06-2025",
+                  type: "Masuk",
+                  qty: 10,
+                  note: "Pengadaan bulanan",
+                },
+              ],
+            },
+          };
+
+          if (itemsData[itemCode]) {
+            const item = itemsData[itemCode];
+
+            // Populate modal fields
+            document.getElementById("detailItemCode").value = itemCode;
+            document.getElementById("detailItemName").value = item.name;
+            document.getElementById("detailItemCategory").value = item.category;
+            document.getElementById("detailItemStock").value = item.stock;
+            document.getElementById("detailItemUnit").value = item.unit;
+            document.getElementById("detailItemPrice").value = item.price;
+            document.getElementById("detailItemDescription").value =
+              item.description;
+
+            // Populate stock history table
+            const stockHistoryList =
+              document.getElementById("stockHistoryList");
+            stockHistoryList.innerHTML = "";
+
+            item.history.forEach((history) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                            <td>${history.date}</td>
+                            <td>${history.type}</td>
+                            <td>${history.qty}</td>
+                            <td>${history.note}</td>
+                        `;
+              stockHistoryList.appendChild(row);
+            });
+
+            // Show the modal using the modals.js function
+            if (typeof openModal === "function") {
+              openModal("itemDetailModal");
+            } else {
+              // Fallback if openModal function is not available
+              const modal = document.getElementById("itemDetailModal");
+              modal.classList.add("show");
+              modal.style.display = "flex";
+            }
+          }
+        }
+
+        // === SHIPPING MODAL FUNCTIONALITY ===
+        // Add event listeners to "Buat Surat Jalan" buttons
+        const createShippingBtns = document.querySelectorAll(
+          ".create-shipping-btn"
+        );
+        const createShippingModal = document.getElementById(
+          "createShippingModal"
+        );
+
+        createShippingBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const invoiceNum = this.dataset.invoice;
+            const customer = this.dataset.customer;
+
+            // Set the values in the modal
+            document.getElementById("invoiceNumber").value = invoiceNum;
+            document.getElementById("customerName").value = customer;
+            document.getElementById("shippingDate").valueAsDate = new Date();
+
+            // Populate item list (this would come from backend in a real app)
+            populateItemsList(invoiceNum);
+
+            // Show the modal using the modals.js function
+            if (typeof openModal === "function") {
+              openModal("createShippingModal");
+            } else {
+              // Fallback if openModal function is not available
+              createShippingModal.classList.add("show");
+              createShippingModal.style.display = "flex";
+            }
+          });
+        });
+
+        // Submit form
+        document
+          .getElementById("submitShippingBtn")
+          .addEventListener("click", function () {
+            if (validateForm()) {
+              // In a real app, you'd send data to the server here
+              alert("Surat jalan berhasil dibuat!");
+              // Hide the modal using the modals.js function if available
+              if (typeof closeModal === "function") {
+                closeModal("createShippingModal");
+              } else {
+                createShippingModal.classList.remove("show");
+                createShippingModal.style.display = "none";
+              }
+            }
+          });
+
+        function validateForm() {
+          const shippingDate = document.getElementById("shippingDate").value;
+          const courier = document.getElementById("courier").value;
+
+          if (!shippingDate) {
+            alert("Mohon pilih tanggal pengiriman");
+            return false;
+          }
+
+          if (!courier) {
+            alert("Mohon pilih kurir");
+            return false;
+          }
+
+          return true;
+        }
+
+        function populateItemsList(invoiceNum) {
+          // In a real app, you'd fetch this data from a database
+          // Mock data for demonstration
+          const itemsData = {
+            "INV-20250003": [
+              {
+                code: "STL-001",
+                name: "Besi Beton 10mm",
+                qty: 10,
+                unit: "Batang",
+              },
+              {
+                code: "STL-004",
+                name: "Besi UNP 50x38",
+                qty: 5,
+                unit: "Batang",
+              },
+            ],
+            "INV-20250001": [
+              {
+                code: "STL-003",
+                name: "Besi Siku 40x40",
+                qty: 15,
+                unit: "Batang",
+              },
+              { code: "STL-005", name: "Plat 2mm", qty: 8, unit: "Lembar" },
+              {
+                code: "STL-001",
+                name: "Besi Beton 10mm",
+                qty: 5,
+                unit: "Batang",
+              },
+            ],
+          };
+
+          const itemsList = document.getElementById("shippingItemsList");
+          itemsList.innerHTML = "";
+
+          if (itemsData[invoiceNum]) {
+            itemsData[invoiceNum].forEach((item) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                            <td>${item.code}</td>
+                            <td>${item.name}</td>
+                            <td>${item.qty}</td>
+                            <td>${item.unit}</td>
+                        `;
+              itemsList.appendChild(row);
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

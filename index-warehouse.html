@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Gudang - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Charts.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="index-warehouse.html" class="sidebar-logo">
+          <img src="images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">6</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">1</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <!-- User info will be dynamically populated -->
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+          "
+        >
+          <h1 class="page-title">Dashboard Gudang</h1>
+          <div class="date-display">
+            <i class="fas fa-calendar"></i>
+            <span id="current-date">22 Juni 2025</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stat-cards">
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <div class="stat-card-title">Total Stok Item</div>
+              <div class="stat-card-value">2,854</div>
+              <div class="stat-card-change positive">
+                <i class="fas fa-arrow-up"></i> 5,2%
+              </div>
+            </div>
+            <div class="stat-card-icon primary">
+              <i class="fas fa-boxes"></i>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <div class="stat-card-title">Pengiriman Aktif</div>
+              <div class="stat-card-value">14</div>
+              <div class="stat-card-change positive">
+                <i class="fas fa-arrow-up"></i> 2,1%
+              </div>
+            </div>
+            <div class="stat-card-icon accent">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <div class="stat-card-title">Barang Masuk</div>
+              <div class="stat-card-value">28</div>
+              <div class="stat-card-change positive">
+                <i class="fas fa-arrow-up"></i> 12,5%
+              </div>
+            </div>
+            <div class="stat-card-icon success">
+              <i class="fas fa-truck-loading"></i>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-info">
+              <div class="stat-card-title">Barang Slow-Moving</div>
+              <div class="stat-card-value">32</div>
+              <div class="stat-card-change negative">
+                <i class="fas fa-arrow-down"></i> 4,8%
+              </div>
+            </div>
+            <div class="stat-card-icon warning">
+              <i class="fas fa-hourglass-half"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts & Tables Section -->
+        <div class="dashboard-grid">
+          <!-- Inventory Levels -->
+          <div class="card dashboard-item">
+            <div class="card-header">
+              <h2 class="card-title">Level Stok Barang</h2>
+              <div class="card-actions">
+                <button class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-sync"></i> Refresh
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="inventoryChart" height="250"></canvas>
+            </div>
+          </div>
+
+          <!-- Stock Status -->
+          <div class="card dashboard-item">
+            <div class="card-header">
+              <h2 class="card-title">Status Stok</h2>
+              <div class="card-actions">
+                <button class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-download"></i> Export
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="stockStatusChart" height="250"></canvas>
+            </div>
+          </div>
+
+          <!-- Low Stock Notifications -->
+          <div class="card dashboard-item">
+            <div class="card-header">
+              <h2 class="card-title">Notifikasi Stok Menipis</h2>
+              <div class="card-actions">
+                <a
+                  href="pages/inventory.html"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  Lihat Semua
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Kode</th>
+                      <th>Nama Barang</th>
+                      <th>Stok Tersedia</th>
+                      <th>Minimum</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>STL-002</td>
+                      <td>Besi Beton 12mm</td>
+                      <td>25</td>
+                      <td>50</td>
+                      <td><span class="status status-low">Rendah</span></td>
+                    </tr>
+                    <tr>
+                      <td>STL-007</td>
+                      <td>Plat 4mm</td>
+                      <td>15</td>
+                      <td>30</td>
+                      <td>
+                        <span class="status status-critical">Kritis</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>STL-010</td>
+                      <td>Pipa Besi 3"</td>
+                      <td>28</td>
+                      <td>40</td>
+                      <td><span class="status status-low">Rendah</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Queue -->
+          <div class="card dashboard-item">
+            <div class="card-header">
+              <h2 class="card-title">Antrian Pengiriman</h2>
+              <div class="card-actions">
+                <a
+                  href="pages/shipping.html"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  Kelola Pengiriman
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No. Surat Jalan</th>
+                      <th>Pelanggan</th>
+                      <th>Tanggal</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>SJ-20250001</td>
+                      <td>PT Maju Bersama</td>
+                      <td>22-06-2025</td>
+                      <td>
+                        <span class="status status-draft">Siap Kirim</span>
+                      </td>
+                      <td class="table-actions">
+                        <button class="btn btn-sm btn-outline-primary">
+                          <i class="fas fa-eye"></i> Detail
+                        </button>
+                        <button class="btn btn-sm btn-accent">
+                          <i class="fas fa-truck"></i> Update
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>SJ-20250002</td>
+                      <td>PT Sejahtera Makmur</td>
+                      <td>22-06-2025</td>
+                      <td>
+                        <span class="status status-shipping"
+                          >Dalam Perjalanan</span
+                        >
+                      </td>
+                      <td class="table-actions">
+                        <button class="btn btn-sm btn-outline-primary">
+                          <i class="fas fa-eye"></i> Detail
+                        </button>
+                        <button class="btn btn-sm btn-accent">
+                          <i class="fas fa-truck"></i> Update
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Stock Movements -->
+          <div class="card dashboard-item" style="grid-column: span 2">
+            <div class="card-header">
+              <h2 class="card-title">Pergerakan Stok Terbaru</h2>
+              <div class="card-actions">
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  id="showIncoming"
+                >
+                  Barang Masuk
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  id="showOutgoing"
+                >
+                  Barang Keluar
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Kode</th>
+                      <th>Nama Barang</th>
+                      <th>Jumlah</th>
+                      <th>Tanggal</th>
+                      <th>Jenis</th>
+                      <th>Referensi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stockMovementTable">
+                    <tr>
+                      <td>STL-001</td>
+                      <td>Besi Beton 10mm</td>
+                      <td>+200</td>
+                      <td>22-06-2025</td>
+                      <td><span class="badge badge-success">Masuk</span></td>
+                      <td>PO-20250012</td>
+                    </tr>
+                    <tr>
+                      <td>STL-004</td>
+                      <td>Besi UNP 50x38</td>
+                      <td>-50</td>
+                      <td>22-06-2025</td>
+                      <td><span class="badge badge-warning">Keluar</span></td>
+                      <td>INV-20250003</td>
+                    </tr>
+                    <tr>
+                      <td>STL-008</td>
+                      <td>Pipa Besi 2"</td>
+                      <td>+150</td>
+                      <td>21-06-2025</td>
+                      <td><span class="badge badge-success">Masuk</span></td>
+                      <td>PO-20250011</td>
+                    </tr>
+                    <tr>
+                      <td>STL-005</td>
+                      <td>Besi Siku 40x40</td>
+                      <td>-75</td>
+                      <td>21-06-2025</td>
+                      <td><span class="badge badge-warning">Keluar</span></td>
+                      <td>INV-20250002</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role Switcher (for demo purposes) -->
+      <div
+        style="
+          margin: 20px;
+          padding: 15px;
+          background-color: #f8f9fa;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        "
+      >
+        <div style="font-weight: bold; margin-bottom: 10px">
+          Demo Mode: Ganti Role
+        </div>
+        <div style="display: flex; gap: 10px">
+          <button
+            class="btn btn-sm btn-outline-primary role-btn"
+            data-role="admin"
+            data-username="Admin KSteel"
+          >
+            Admin
+          </button>
+          <button
+            class="btn btn-sm btn-outline-primary role-btn"
+            data-role="sales"
+            data-username="Staff Sales"
+          >
+            Staff Sales
+          </button>
+          <button
+            class="btn btn-sm btn-primary role-btn"
+            data-role="warehouse"
+            data-username="Staff Gudang"
+          >
+            Staff Gudang
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/roles.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Format current date
+        const now = new Date();
+        const options = { day: "numeric", month: "long", year: "numeric" };
+        document.getElementById("current-date").textContent =
+          now.toLocaleDateString("id-ID", options);
+
+        // Inventory Chart
+        const inventoryChartCtx = document
+          .getElementById("inventoryChart")
+          .getContext("2d");
+        const inventoryChart = new Chart(inventoryChartCtx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"],
+            datasets: [
+              {
+                label: "Level Stok",
+                data: [2100, 2250, 2400, 2320, 2680, 2854],
+                fill: true,
+                backgroundColor: "rgba(41, 128, 185, 0.1)",
+                borderColor: "#2980b9",
+                tension: 0.3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+              },
+            },
+          },
+        });
+
+        // Stock Status Chart
+        const stockStatusChartCtx = document
+          .getElementById("stockStatusChart")
+          .getContext("2d");
+        const stockStatusChart = new Chart(stockStatusChartCtx, {
+          type: "doughnut",
+          data: {
+            labels: [
+              "Stok Baik",
+              "Stok Menipis",
+              "Stok Kritis",
+              "Stok Berlebih",
+              "Slow-Moving",
+            ],
+            datasets: [
+              {
+                data: [60, 15, 5, 8, 12],
+                backgroundColor: [
+                  "#27ae60",
+                  "#f39c12",
+                  "#e74c3c",
+                  "#3498db",
+                  "#9b59b6",
+                ],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "right",
+              },
+            },
+          },
+        });
+
+        // Toggle between incoming and outgoing items
+        document
+          .getElementById("showIncoming")
+          .addEventListener("click", function () {
+            this.classList.add("btn-primary");
+            this.classList.remove("btn-outline-primary");
+            document
+              .getElementById("showOutgoing")
+              .classList.add("btn-outline-primary");
+            document
+              .getElementById("showOutgoing")
+              .classList.remove("btn-primary");
+
+            // Would filter real data in a production app
+            alert("Menampilkan data barang masuk");
+          });
+
+        document
+          .getElementById("showOutgoing")
+          .addEventListener("click", function () {
+            this.classList.add("btn-primary");
+            this.classList.remove("btn-outline-primary");
+            document
+              .getElementById("showIncoming")
+              .classList.add("btn-outline-primary");
+            document
+              .getElementById("showIncoming")
+              .classList.remove("btn-primary");
+
+            // Would filter real data in a production app
+            alert("Menampilkan data barang keluar");
+          });
+        // Role switching for demo
+        document.querySelectorAll(".role-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const role = this.getAttribute("data-role");
+            const username = this.getAttribute("data-username");
+            switchRole(role, username);
+          });
+        });
+      });
+    </script>
+    <script src="js/page-init.js"></script>
+  </body>
+</html>

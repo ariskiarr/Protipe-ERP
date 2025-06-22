@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 340px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .logo-section {
+            background-color: #003366;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo-k {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .logo-bars {
+            display: inline-block;
+            margin-left: 2px;
+        }
+        
+        .bar {
+            height: 6px;
+            width: 24px;
+            background-color: #FF8000;
+            margin-bottom: 2px;
+            display: block;
+        }
+        
+        .logo-text {
+            font-size: 14px;
+            margin-left: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .company-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 10px 0 5px;
+        }
+        
+        .system-name {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-label i {
+            margin-right: 8px;
+            width: 16px;
+            color: #666;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            box-sizing: border-box;
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .remember-me input {
+            margin-right: 8px;
+        }
+        
+        .login-btn {
+            background-color: #FF8000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-btn i {
+            margin-right: 8px;
+        }
+        
+        .login-btn:hover {
+            background-color: #e67300;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo">
+                <span class="logo-k">K</span>
+                <div class="logo-bars">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <span class="logo-text">STEEL</span>
+            </div>
+            <h1 class="company-name">PT KSteel Nusantara</h1>
+            <p class="system-name">Enterprise Resource Planning System</p>
+        </div>
+        
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label class="form-label" for="username">
+                    <i class="fas fa-user"></i> Username
+                </label>
+                <input type="text" id="username" class="form-control" placeholder="ariskiaderaharjo@gmail.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="password">
+                    <i class="fas fa-lock"></i> Password
+                </label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="role">
+                    <i class="fas fa-users"></i> Peran
+                </label>
+                <select id="role" class="form-control" required>
+                    <option value="">Pilih Peran</option>
+                    <option value="admin">Admin</option>
+                    <option value="sales">Staf Sales</option>
+                    <option value="warehouse">Staf Gudang</option>
+                </select>
+            </div>
+            
+            <div class="remember-me">
+                <input type="checkbox" id="remember">
+                <label for="remember">Ingat saya</label>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+            </div>
+        </div>
+    </div>    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.querySelector('.toggle-password i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            
+            if (!username || !password || !role) {
+                alert('Mohon lengkapi semua field!');
+                return;
+            }
+            
+            // Simpan role di localStorage
+            localStorage.setItem('ksteel-user-role', role);
+            localStorage.setItem('ksteel-username', username);
+            
+            // Redirect berdasarkan role
+            switch(role) {
+                case 'admin':
+                    window.location.href = 'index.html';
+                    break;
+                case 'sales':
+                    window.location.href = 'index-sales.html';
+                    break;
+                case 'warehouse':
+                    window.location.href = 'index-warehouse.html';
+                    break;
+                default:
+                    window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

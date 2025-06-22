@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengaturan - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">3</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <!-- User info will be dynamically populated -->
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Pengaturan Sistem</h1>
+
+        <div class="settings-wrapper">
+          <div class="settings-sidebar">
+            <h3>Kategori Pengaturan</h3>
+            <ul class="settings-menu">
+              <li class="active" data-settings="company">
+                <i class="fas fa-building"></i>
+                <span>Profil Perusahaan</span>
+              </li>
+              <li data-settings="users">
+                <i class="fas fa-users"></i>
+                <span>Manajemen Pengguna</span>
+              </li>
+              <li data-settings="roles">
+                <i class="fas fa-user-tag"></i>
+                <span>Peran & Izin</span>
+              </li>
+              <li data-settings="backup">
+                <i class="fas fa-database"></i>
+                <span>Backup & Restore</span>
+              </li>
+              <li data-settings="system">
+                <i class="fas fa-cogs"></i>
+                <span>Pengaturan Sistem</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="settings-content">
+            <!-- Company Profile Settings -->
+            <div class="settings-section active" id="company-settings">
+              <h2>Profil Perusahaan</h2>
+              <form id="companyProfileForm" class="settings-form">
+                <div class="form-group">
+                  <label for="companyName">Nama Perusahaan:</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    class="form-control"
+                    value="PT KSteel Nusantara"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="companyAddress">Alamat:</label>
+                  <textarea id="companyAddress" class="form-control" rows="3">
+Jl. Industri Raya No. 45, Kawasan Industri Pulogadung, Jakarta Timur 13920</textarea
+                  >
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="companyPhone">Telepon:</label>
+                    <input
+                      type="text"
+                      id="companyPhone"
+                      class="form-control"
+                      value="(021) 4608-7777"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="companyEmail">Email:</label>
+                    <input
+                      type="email"
+                      id="companyEmail"
+                      class="form-control"
+                      value="info@ksteel.co.id"
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="companyWebsite">Website:</label>
+                    <input
+                      type="text"
+                      id="companyWebsite"
+                      class="form-control"
+                      value="www.ksteel.co.id"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="companyNpwp">NPWP:</label>
+                    <input
+                      type="text"
+                      id="companyNpwp"
+                      class="form-control"
+                      value="01.777.888.9-023.000"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="companyLogo">Logo Perusahaan:</label>
+                  <div class="logo-upload-container">
+                    <div class="current-logo">
+                      <img src="../images/logo.svg" alt="Company Logo" />
+                    </div>
+                    <div class="logo-upload">
+                      <input type="file" id="companyLogo" accept="image/*" />
+                      <button type="button" class="btn btn-outline-primary">
+                        Pilih File
+                      </button>
+                      <span>File belum dipilih</span>
+                    </div>
+                  </div>
+                  <small class="form-text text-muted"
+                    >Format yang direkomendasikan: SVG atau PNG dengan latar
+                    belakang transparan.</small
+                  >
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">
+                    Simpan Perubahan
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- User Management Settings -->
+            <div
+              class="settings-section"
+              id="users-settings"
+              style="display: none"
+            >
+              <h2>Manajemen Pengguna</h2>
+
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h3 class="card-title">Daftar Pengguna</h3>
+                  <button class="btn btn-primary" id="addUserBtn">
+                    <i class="fas fa-plus"></i> Tambah Pengguna
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nama</th>
+                          <th>Username</th>
+                          <th>Email</th>
+                          <th>Peran</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Admin KSteel</td>
+                          <td>admin</td>
+                          <td>admin@ksteel.co.id</td>
+                          <td>
+                            <span class="badge badge-primary">Admin</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-success">Aktif</span>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-info">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning">
+                              <i class="fas fa-key"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Budi Santoso</td>
+                          <td>budi</td>
+                          <td>budi@ksteel.co.id</td>
+                          <td>
+                            <span class="badge badge-info">Warehouse</span>
+                          </td>
+                          <td>
+                            <span class="badge badge-success">Aktif</span>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-info">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning">
+                              <i class="fas fa-key"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Siti Rahayu</td>
+                          <td>siti</td>
+                          <td>siti@ksteel.co.id</td>
+                          <td><span class="badge badge-info">Sales</span></td>
+                          <td>
+                            <span class="badge badge-success">Aktif</span>
+                          </td>
+                          <td>
+                            <button class="btn btn-sm btn-info">
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning">
+                              <i class="fas fa-key"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other settings sections would go here -->
+            <div
+              class="settings-section"
+              id="roles-settings"
+              style="display: none"
+            >
+              <h2>Peran & Izin</h2>
+              <!-- Roles & Permissions content -->
+              <div class="alert alert-info">
+                Halaman pengaturan peran dan izin sedang dalam pengembangan.
+              </div>
+            </div>
+
+            <div
+              class="settings-section"
+              id="backup-settings"
+              style="display: none"
+            >
+              <h2>Backup & Restore</h2>
+              <!-- Backup & Restore content -->
+              <div class="backup-actions">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h3 class="card-title">Backup Database</h3>
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      Buat backup database untuk melindungi data penting Anda.
+                      Backup akan disimpan di server dan dapat diunduh.
+                    </p>
+                    <button class="btn btn-primary" id="createBackupBtn">
+                      <i class="fas fa-database"></i> Buat Backup Sekarang
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Restore Database</h3>
+                  </div>
+                  <div class="card-body">
+                    <p>Pulihkan database dari file backup yang ada.</p>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input
+                          type="file"
+                          class="custom-file-input"
+                          id="backupFile"
+                          accept=".sql,.gz,.zip"
+                        />
+                        <label class="custom-file-label" for="backupFile"
+                          >Pilih file backup</label
+                        >
+                      </div>
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-warning"
+                          type="button"
+                          id="restoreBtn"
+                          disabled
+                        >
+                          <i class="fas fa-upload"></i> Restore
+                        </button>
+                      </div>
+                    </div>
+                    <small class="text-danger"
+                      >Peringatan: Restore database akan menimpa semua data saat
+                      ini.</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="settings-section"
+              id="system-settings"
+              style="display: none"
+            >
+              <h2>Pengaturan Sistem</h2>
+              <!-- System Settings content -->
+              <form id="systemSettingsForm" class="settings-form">
+                <div class="form-group">
+                  <label for="dateFormat">Format Tanggal:</label>
+                  <select id="dateFormat" class="form-control">
+                    <option value="dd-mm-yyyy" selected>DD-MM-YYYY</option>
+                    <option value="mm-dd-yyyy">MM-DD-YYYY</option>
+                    <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="timezone">Zona Waktu:</label>
+                  <select id="timezone" class="form-control">
+                    <option value="Asia/Jakarta" selected>
+                      Asia/Jakarta (WIB)
+                    </option>
+                    <option value="Asia/Makassar">Asia/Makassar (WITA)</option>
+                    <option value="Asia/Jayapura">Asia/Jayapura (WIT)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="language">Bahasa:</label>
+                  <select id="language" class="form-control">
+                    <option value="id" selected>Indonesia</option>
+                    <option value="en">English</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Email Notifikasi:</label>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="stockAlert"
+                      checked
+                    />
+                    <label class="form-check-label" for="stockAlert">
+                      Peringatan Stok Menipis
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="invoiceAlert"
+                      checked
+                    />
+                    <label class="form-check-label" for="invoiceAlert">
+                      Faktur Jatuh Tempo
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="orderAlert"
+                      checked
+                    />
+                    <label class="form-check-label" for="orderAlert">
+                      Pesanan Baru
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">
+                    Simpan Perubahan
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Tambah Pengguna Baru</h2>
+          <span
+            class="close-modal"
+            onclick="document.getElementById('addUserModal').style.display = 'none'"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <form id="addUserForm">
+            <div class="form-group">
+              <label for="userName">Nama Lengkap:</label>
+              <input type="text" id="userName" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="userUsername">Username:</label>
+              <input
+                type="text"
+                id="userUsername"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="userEmail">Email:</label>
+              <input
+                type="email"
+                id="userEmail"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="userPassword">Password:</label>
+              <input
+                type="password"
+                id="userPassword"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="userConfirmPassword">Konfirmasi Password:</label>
+              <input
+                type="password"
+                id="userConfirmPassword"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="userRole">Peran:</label>
+              <select id="userRole" class="form-control" required>
+                <option value="">-- Pilih Peran --</option>
+                <option value="admin">Admin</option>
+                <option value="sales">Sales</option>
+                <option value="warehouse">Gudang</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="userStatus">Status:</label>
+              <select id="userStatus" class="form-control" required>
+                <option value="active">Aktif</option>
+                <option value="inactive">Tidak Aktif</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="document.getElementById('addUserModal').style.display = 'none'"
+              >
+                Batal
+              </button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Settings menu click handlers
+        document.querySelectorAll(".settings-menu li").forEach((item) => {
+          item.addEventListener("click", function () {
+            // Update active menu item
+            document.querySelectorAll(".settings-menu li").forEach((li) => {
+              li.classList.remove("active");
+            });
+            this.classList.add("active");
+
+            // Show selected settings section
+            const settingsType = this.getAttribute("data-settings");
+            document
+              .querySelectorAll(".settings-section")
+              .forEach((section) => {
+                section.style.display = "none";
+              });
+            document.getElementById(settingsType + "-settings").style.display =
+              "block";
+          });
+        });
+
+        // Company Profile Form
+        document
+          .getElementById("companyProfileForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Profil perusahaan berhasil disimpan!");
+          });
+
+        // System Settings Form
+        document
+          .getElementById("systemSettingsForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Pengaturan sistem berhasil disimpan!");
+          });
+
+        // Add User Modal
+        document
+          .getElementById("addUserBtn")
+          .addEventListener("click", function () {
+            document.getElementById("addUserModal").style.display = "block";
+          });
+
+        // Add User Form
+        document
+          .getElementById("addUserForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const password = document.getElementById("userPassword").value;
+            const confirmPassword = document.getElementById(
+              "userConfirmPassword"
+            ).value;
+
+            if (password !== confirmPassword) {
+              alert("Password dan konfirmasi password tidak cocok!");
+              return;
+            }
+
+            alert("Pengguna baru berhasil ditambahkan!");
+            document.getElementById("addUserModal").style.display = "none";
+          });
+
+        // Backup button
+        document
+          .getElementById("createBackupBtn")
+          .addEventListener("click", function () {
+            alert(
+              "Membuat backup database... Proses ini mungkin memerlukan beberapa menit."
+            );
+          });
+
+        // Backup file input
+        document
+          .getElementById("backupFile")
+          .addEventListener("change", function () {
+            if (this.files.length > 0) {
+              document.querySelector(".custom-file-label").textContent =
+                this.files[0].name;
+              document.getElementById("restoreBtn").disabled = false;
+            } else {
+              document.querySelector(".custom-file-label").textContent =
+                "Pilih file backup";
+              document.getElementById("restoreBtn").disabled = true;
+            }
+          });
+
+        // Restore button
+        document
+          .getElementById("restoreBtn")
+          .addEventListener("click", function () {
+            const confirmRestore = confirm(
+              "PERINGATAN: Tindakan ini akan menimpa semua data saat ini. Apakah Anda yakin ingin melanjutkan?"
+            );
+            if (confirmRestore) {
+              alert(
+                "Memulai proses restore database... Proses ini mungkin memerlukan beberapa menit."
+              );
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

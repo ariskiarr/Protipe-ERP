@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faktur Penjualan - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">3</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <div>
+              <div class="user-name">Admin KSteel</div>
+              <div class="user-role">Administrator</div>
+            </div>
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Faktur Penjualan</h1>
+
+        <!-- Search and Filter -->
+        <div class="card">
+          <div class="card-body">
+            <div style="display: flex; gap: 15px; align-items: flex-end">
+              <div class="form-group" style="flex: 1; margin-bottom: 0">
+                <label class="form-label">No. Faktur</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Cari nomor faktur..."
+                />
+              </div>
+              <div class="form-group" style="flex: 1; margin-bottom: 0">
+                <label class="form-label">Pelanggan</label>
+                <select class="form-select">
+                  <option value="">Semua Pelanggan</option>
+                  <option value="1">PT Maju Bersama</option>
+                  <option value="2">CV Abadi Jaya</option>
+                  <option value="3">PT Sejahtera Makmur</option>
+                </select>
+              </div>
+              <div class="form-group" style="flex: 1; margin-bottom: 0">
+                <label class="form-label">Status</label>
+                <select class="form-select">
+                  <option value="">Semua Status</option>
+                  <option value="draft">Draft</option>
+                  <option value="approved">Disetujui</option>
+                </select>
+              </div>
+              <div>
+                <button class="btn btn-primary">Filter</button>
+                <button class="btn btn-secondary">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Daftar Faktur</h2>
+            <div>
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-file-export"></i> Export
+              </button>
+              <button class="btn btn-accent" id="createInvoiceBtn">
+                <i class="fas fa-plus"></i> Buat Faktur Baru
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table" id="invoiceTable">
+                <thead>
+                  <tr>
+                    <th>No. Faktur</th>
+                    <th>Pelanggan</th>
+                    <th>Tanggal</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>INV-20250003</td>
+                    <td>PT Sejahtera Makmur</td>
+                    <td>22-06-2025</td>
+                    <td>Rp 22,000,000</td>
+                    <td>
+                      <span class="status status-approved">Disetujui</span>
+                    </td>
+                    <td class="table-actions">
+                      <button
+                        class="btn btn-sm btn-outline-primary view-btn"
+                        data-id="3"
+                        title="Lihat Detail"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary print-btn"
+                        data-id="3"
+                        title="Cetak"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary edit-btn"
+                        data-id="3"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-20250002</td>
+                    <td>CV Abadi Jaya</td>
+                    <td>21-06-2025</td>
+                    <td>Rp 8,500,000</td>
+                    <td><span class="status status-draft">Draft</span></td>
+                    <td class="table-actions">
+                      <button
+                        class="btn btn-sm btn-outline-primary view-btn"
+                        data-id="2"
+                        title="Lihat Detail"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary edit-btn"
+                        data-id="2"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary delete-btn"
+                        data-id="2"
+                        title="Hapus"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-20250001</td>
+                    <td>PT Maju Bersama</td>
+                    <td>20-06-2025</td>
+                    <td>Rp 15,000,000</td>
+                    <td>
+                      <span class="status status-approved">Disetujui</span>
+                    </td>
+                    <td class="table-actions">
+                      <button
+                        class="btn btn-sm btn-outline-primary view-btn"
+                        data-id="1"
+                        title="Lihat Detail"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary print-btn"
+                        data-id="1"
+                        title="Cetak"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary edit-btn"
+                        data-id="1"
+                        title="Edit"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Invoice Modal -->
+    <div
+      id="createInvoiceModal"
+      class="modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      "
+    >
+      <div
+        class="modal-content"
+        style="
+          background-color: #fff;
+          margin: 2% auto;
+          padding: 20px;
+          width: 80%;
+          max-width: 900px;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          max-height: 90vh;
+          overflow-y: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+          "
+        >
+          <h2 style="margin: 0">Buat Faktur Baru</h2>
+          <span class="close-modal" style="cursor: pointer; font-size: 24px"
+            >&times;</span
+          >
+        </div>
+        <form id="createInvoiceForm">
+          <div class="form-grid" style="margin-bottom: 20px">
+            <div class="form-group">
+              <label class="form-label" for="invoiceNumber">No. Faktur</label>
+              <input
+                type="text"
+                id="invoiceNumber"
+                class="form-control"
+                value="INV-20250004"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invoiceDate">Tanggal</label>
+              <input
+                type="date"
+                id="invoiceDate"
+                class="form-control"
+                value="2025-06-22"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invoiceCustomer">Pelanggan</label>
+              <select id="invoiceCustomer" class="form-select" required>
+                <option value="">Pilih Pelanggan</option>
+                <option value="1">PT Maju Bersama</option>
+                <option value="2">CV Abadi Jaya</option>
+                <option value="3">PT Sejahtera Makmur</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invoiceStatus">Status</label>
+              <select id="invoiceStatus" class="form-select" required>
+                <option value="draft">Draft</option>
+                <option value="approved">Disetujui</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+              "
+            >
+              <h3 style="margin: 0">Item Faktur</h3>
+              <button
+                type="button"
+                class="btn btn-sm btn-accent"
+                id="addInvoiceItem"
+              >
+                <i class="fas fa-plus"></i> Tambah Item
+              </button>
+            </div>
+            <div class="table-container">
+              <table class="table" id="invoiceItemsTable">
+                <thead>
+                  <tr>
+                    <th style="width: 40%">Barang</th>
+                    <th style="width: 15%">Jumlah</th>
+                    <th style="width: 15%">Harga</th>
+                    <th style="width: 20%">Subtotal</th>
+                    <th style="width: 10%">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <select class="form-select item-product" required>
+                        <option value="">Pilih Barang</option>
+                        <option value="1">STL-001 - Besi Beton 10mm</option>
+                        <option value="2">STL-002 - Besi Hollow 4x2</option>
+                        <option value="3">STL-003 - Kawat Las 2.6mm</option>
+                        <option value="4">STL-004 - Besi UNP 50x38</option>
+                        <option value="5">STL-005 - Pipa Besi 2"</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control item-qty"
+                        value="1"
+                        min="1"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control item-price"
+                        value="95000"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <div class="item-subtotal">Rp 95.000</div>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-primary delete-item"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td
+                      colspan="3"
+                      style="text-align: right; font-weight: bold"
+                    >
+                      Total
+                    </td>
+                    <td id="invoiceTotal">Rp 95.000</td>
+                    <td></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="invoiceNotes">Catatan</label>
+            <textarea
+              id="invoiceNotes"
+              class="form-control"
+              rows="3"
+            ></textarea>
+          </div>
+        </form>
+        <div style="text-align: right; margin-top: 20px">
+          <button
+            class="btn btn-secondary close-modal"
+            style="margin-right: 10px"
+          >
+            Batal
+          </button>
+          <button class="btn btn-accent" id="saveInvoiceBtn">
+            Simpan Faktur
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Invoice Modal -->
+    <div
+      id="viewInvoiceModal"
+      class="modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      "
+    >
+      <div
+        class="modal-content"
+        style="
+          background-color: #fff;
+          margin: 2% auto;
+          padding: 20px;
+          width: 80%;
+          max-width: 800px;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          max-height: 90vh;
+          overflow-y: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+          "
+        >
+          <h2 style="margin: 0">Detail Faktur</h2>
+          <div>
+            <button
+              class="btn btn-sm btn-outline-primary print-invoice"
+              style="margin-right: 10px"
+            >
+              <i class="fas fa-print"></i> Cetak
+            </button>
+            <span class="close-modal" style="cursor: pointer; font-size: 24px"
+              >&times;</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="invoice-detail"
+          style="
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+          "
+        >
+          <div style="display: flex; justify-content: space-between">
+            <div>
+              <div style="font-weight: bold; font-size: 20px">
+                PT KSteel Nusantara
+              </div>
+              <div>Jl. Industri Raya No. 25</div>
+              <div>Jakarta Timur, 13910</div>
+              <div>Telp: 021-8765432</div>
+            </div>
+            <div style="text-align: right">
+              <div
+                style="
+                  font-weight: bold;
+                  font-size: 24px;
+                  color: #003366;
+                  margin-bottom: 10px;
+                "
+              >
+                FAKTUR PENJUALAN
+              </div>
+              <div><strong>No. Faktur:</strong> INV-20250003</div>
+              <div><strong>Tanggal:</strong> 22-06-2025</div>
+              <div>
+                <strong>Status:</strong>
+                <span class="status status-approved">Disetujui</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin: 20px 0;
+              padding: 10px 0;
+              border-top: 1px solid #e0e0e0;
+              border-bottom: 1px solid #e0e0e0;
+            "
+          >
+            <div>
+              <div style="font-weight: bold; margin-bottom: 5px">
+                Pelanggan:
+              </div>
+              <div style="font-weight: bold">PT Sejahtera Makmur</div>
+              <div>Jl. Panglima Sudirman 88</div>
+              <div>Surabaya</div>
+              <div>Telp: 031-8873421</div>
+            </div>
+            <div>
+              <div style="font-weight: bold; margin-bottom: 5px">
+                Dikirim Ke:
+              </div>
+              <div>PT Sejahtera Makmur</div>
+              <div>Jl. Panglima Sudirman 88</div>
+              <div>Surabaya</div>
+            </div>
+          </div>
+
+          <table class="table" style="margin-bottom: 20px">
+            <thead>
+              <tr>
+                <th>Barang</th>
+                <th>Jumlah</th>
+                <th>Harga</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>STL-001 - Besi Beton 10mm</td>
+                <td>100</td>
+                <td>Rp 95.000</td>
+                <td>Rp 9.500.000</td>
+              </tr>
+              <tr>
+                <td>STL-004 - Besi UNP 50x38</td>
+                <td>50</td>
+                <td>Rp 250.000</td>
+                <td>Rp 12.500.000</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" style="text-align: right; font-weight: bold">
+                  Total
+                </td>
+                <td style="font-weight: bold">Rp 22.000.000</td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div>
+            <div style="font-weight: bold; margin-bottom: 5px">Catatan:</div>
+            <div>Pembayaran jatuh tempo 30 hari setelah tanggal faktur.</div>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 20px">
+          <button class="btn btn-secondary close-modal">Tutup</button>
+          <button class="btn btn-accent create-shipping-btn">
+            Buat Surat Jalan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Create Invoice Button
+        document
+          .getElementById("createInvoiceBtn")
+          .addEventListener("click", function () {
+            document.getElementById("createInvoiceModal").style.display =
+              "block";
+          });
+
+        // View Invoice Buttons
+        const viewButtons = document.querySelectorAll(".view-btn");
+        viewButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const invoiceId = this.getAttribute("data-id");
+            viewInvoice(invoiceId);
+          });
+        });
+
+        // Close Modal Buttons
+        const closeButtons = document.querySelectorAll(".close-modal");
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            document.getElementById("createInvoiceModal").style.display =
+              "none";
+            document.getElementById("viewInvoiceModal").style.display = "none";
+          });
+        });
+
+        // Add Invoice Item Button
+        document
+          .getElementById("addInvoiceItem")
+          .addEventListener("click", function () {
+            addInvoiceItemRow();
+          });
+
+        // Save Invoice Button
+        document
+          .getElementById("saveInvoiceBtn")
+          .addEventListener("click", function () {
+            const form = document.getElementById("createInvoiceForm");
+
+            if (validateForm(form)) {
+              // In a real app, you'd send this data to an API
+              alert("Faktur berhasil disimpan!");
+              document.getElementById("createInvoiceModal").style.display =
+                "none";
+            }
+          });
+
+        // Delete Item Event Listener (delegated)
+        document.addEventListener("click", function (e) {
+          if (
+            e.target.classList.contains("delete-item") ||
+            e.target.parentElement.classList.contains("delete-item")
+          ) {
+            const button = e.target.classList.contains("delete-item")
+              ? e.target
+              : e.target.parentElement;
+            const row = button.closest("tr");
+
+            // Ensure we don't delete the last row
+            const tbody = row.parentElement;
+            if (tbody.rows.length > 1) {
+              row.remove();
+            } else {
+              alert("Faktur harus memiliki minimal satu item.");
+            }
+
+            // Recalculate total
+            calculateInvoiceTotal();
+          }
+        });
+
+        // Calculate subtotals on quantity or price change
+        document.addEventListener("change", function (e) {
+          if (
+            e.target.classList.contains("item-qty") ||
+            e.target.classList.contains("item-price")
+          ) {
+            const row = e.target.closest("tr");
+            const qty = parseInt(row.querySelector(".item-qty").value) || 0;
+            const price = parseInt(row.querySelector(".item-price").value) || 0;
+            const subtotal = qty * price;
+
+            row.querySelector(".item-subtotal").textContent =
+              formatCurrency(subtotal);
+            calculateInvoiceTotal();
+          }
+        });
+
+        // Create Shipping Button
+        const createShippingBtn = document.querySelector(
+          ".create-shipping-btn"
+        );
+        if (createShippingBtn) {
+          createShippingBtn.addEventListener("click", function () {
+            alert("Mengarahkan ke halaman pembuatan Surat Jalan...");
+            window.location.href = "shipping.html";
+          });
+        }
+
+        // Print Invoice Button
+        const printButtons = document.querySelectorAll(
+          ".print-btn, .print-invoice"
+        );
+        printButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const invoiceId = this.getAttribute("data-id") || "current";
+            printInvoice(invoiceId);
+          });
+        });
+      });
+
+      function validateForm(form) {
+        // Simple validation
+        let isValid = true;
+        const inputs = form.querySelectorAll(
+          "input[required], select[required]"
+        );
+
+        inputs.forEach((input) => {
+          if (!input.value.trim()) {
+            isValid = false;
+            input.classList.add("error");
+          } else {
+            input.classList.remove("error");
+          }
+        });
+
+        // Check if there are items in the invoice
+        const itemRows = form.querySelectorAll("#invoiceItemsTable tbody tr");
+        if (itemRows.length === 0) {
+          isValid = false;
+          alert("Faktur harus memiliki minimal satu item.");
+        }
+
+        if (!isValid) {
+          alert("Mohon lengkapi semua field yang diperlukan!");
+        }
+
+        return isValid;
+      }
+
+      function addInvoiceItemRow() {
+        const tbody = document.querySelector("#invoiceItemsTable tbody");
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+                <td>
+                    <select class="form-select item-product" required>
+                        <option value="">Pilih Barang</option>
+                        <option value="1">STL-001 - Besi Beton 10mm</option>
+                        <option value="2">STL-002 - Besi Hollow 4x2</option>
+                        <option value="3">STL-003 - Kawat Las 2.6mm</option>
+                        <option value="4">STL-004 - Besi UNP 50x38</option>
+                        <option value="5">STL-005 - Pipa Besi 2"</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control item-qty" value="1" min="1" required>
+                </td>
+                <td>
+                    <input type="number" class="form-control item-price" value="0" required>
+                </td>
+                <td>
+                    <div class="item-subtotal">Rp 0</div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary delete-item">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+        tbody.appendChild(newRow);
+      }
+
+      function calculateInvoiceTotal() {
+        const rows = document.querySelectorAll("#invoiceItemsTable tbody tr");
+        let total = 0;
+
+        rows.forEach((row) => {
+          const qty = parseInt(row.querySelector(".item-qty").value) || 0;
+          const price = parseInt(row.querySelector(".item-price").value) || 0;
+          total += qty * price;
+        });
+
+        const totalElement = document.getElementById("invoiceTotal");
+        if (totalElement) {
+          totalElement.textContent = formatCurrency(total);
+        }
+      }
+
+      function viewInvoice(id) {
+        // In a real app, you'd fetch invoice data from an API
+        document.getElementById("viewInvoiceModal").style.display = "block";
+      }
+
+      function printInvoice(id) {
+        // In a real app, you'd generate a PDF or open a print view
+        alert(`Mencetak faktur dengan ID: ${id}`);
+      }
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        }).format(amount);
+      }
+    </script>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+  </body>
+</html>

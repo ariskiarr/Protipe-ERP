@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barang Keluar - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">3</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <!-- User info will be dynamically populated -->
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Barang Keluar</h1>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Daftar Barang Keluar</h2>
+            <div>
+              <button class="btn btn-primary" onclick="showAddOutgoingModal()">
+                <i class="fas fa-plus"></i> Tambah Barang Keluar
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="filter-section">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Cari barang..."
+                  id="searchInput"
+                />
+                <button class="btn btn-outline-primary" type="button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <div class="filter-group">
+                <div class="input-group">
+                  <label for="dateFilterStart">Dari:</label>
+                  <input
+                    type="date"
+                    id="dateFilterStart"
+                    class="form-control"
+                  />
+                </div>
+                <div class="input-group">
+                  <label for="dateFilterEnd">Sampai:</label>
+                  <input type="date" id="dateFilterEnd" class="form-control" />
+                </div>
+                <button class="btn btn-outline-primary" type="button">
+                  <i class="fas fa-filter"></i> Filter
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID Pengeluaran</th>
+                    <th>Tanggal</th>
+                    <th>Tujuan</th>
+                    <th>No. Faktur</th>
+                    <th>Total Item</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>OUT-20250001</td>
+                    <td>22-06-2025</td>
+                    <td>PT Konstruksi Baja</td>
+                    <td>INV-20250003</td>
+                    <td>2 item</td>
+                    <td><span class="badge badge-success">Selesai</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-info"
+                        onclick="viewOutgoing(1)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onclick="printOutgoing(1)"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>OUT-20250002</td>
+                    <td>21-06-2025</td>
+                    <td>CV Maju Jaya</td>
+                    <td>INV-20250002</td>
+                    <td>3 item</td>
+                    <td><span class="badge badge-success">Selesai</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-info"
+                        onclick="viewOutgoing(2)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onclick="printOutgoing(2)"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>OUT-20250003</td>
+                    <td>20-06-2025</td>
+                    <td>PT Bangun Perkasa</td>
+                    <td>INV-20250001</td>
+                    <td>4 item</td>
+                    <td><span class="badge badge-success">Selesai</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-info"
+                        onclick="viewOutgoing(3)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onclick="printOutgoing(3)"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>OUT-20250004</td>
+                    <td>19-06-2025</td>
+                    <td>PT Konstruksi Prima</td>
+                    <td>INV-20250000</td>
+                    <td>2 item</td>
+                    <td><span class="badge badge-success">Selesai</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-info"
+                        onclick="viewOutgoing(4)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onclick="printOutgoing(4)"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>OUT-20250005</td>
+                    <td>17-06-2025</td>
+                    <td>CV Baja Sejati</td>
+                    <td>INV-20249999</td>
+                    <td>3 item</td>
+                    <td><span class="badge badge-success">Selesai</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-info"
+                        onclick="viewOutgoing(5)"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-primary"
+                        onclick="printOutgoing(5)"
+                      >
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pagination-container">
+              <div class="pagination-info">Menampilkan 1-5 dari 24 entri</div>
+              <div class="pagination">
+                <button class="page-btn" disabled>
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <button class="page-btn">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Outgoing Modal -->
+    <div id="addOutgoingModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Tambah Barang Keluar</h2>
+          <span class="close-modal" onclick="closeAddOutgoingModal()"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <form id="addOutgoingForm" onsubmit="return validateForm(this)">
+            <div class="form-group">
+              <label for="outgoingDate">Tanggal Pengeluaran:</label>
+              <input
+                type="date"
+                id="outgoingDate"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="outgoingCustomerId">Customer/Tujuan:</label>
+              <select id="outgoingCustomerId" class="form-control" required>
+                <option value="">-- Pilih Customer --</option>
+                <option value="1">PT Konstruksi Baja</option>
+                <option value="2">CV Maju Jaya</option>
+                <option value="3">PT Bangun Perkasa</option>
+                <option value="4">PT Konstruksi Prima</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="outgoingInvoiceNumber">Nomor Faktur:</label>
+              <input
+                type="text"
+                id="outgoingInvoiceNumber"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <h3>Daftar Barang</h3>
+            <div class="item-list" id="outgoingItems">
+              <div class="item-row">
+                <div class="form-group">
+                  <label>Barang:</label>
+                  <select class="form-control item-select" required>
+                    <option value="">-- Pilih Barang --</option>
+                    <option value="STL-001">STL-001 - Besi Beton 10mm</option>
+                    <option value="STL-002">STL-002 - Besi Beton 12mm</option>
+                    <option value="STL-003">STL-003 - Besi CNP 60x30</option>
+                    <option value="STL-004">STL-004 - Besi UNP 50x38</option>
+                    <option value="STL-005">STL-005 - Besi Siku 40x40</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Quantity:</label>
+                  <input
+                    type="number"
+                    class="form-control item-qty"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Satuan:</label>
+                  <select class="form-control item-unit" required>
+                    <option value="Batang">Batang</option>
+                    <option value="Lembar">Lembar</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Pcs">Pcs</option>
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger remove-item"
+                  style="height: 35px; margin-top: 24px"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary" id="addItemBtn">
+                <i class="fas fa-plus"></i> Tambah Item
+              </button>
+            </div>
+
+            <div class="form-group">
+              <label for="outgoingNotes">Catatan:</label>
+              <textarea
+                id="outgoingNotes"
+                class="form-control"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeAddOutgoingModal()"
+              >
+                Batal
+              </button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Outgoing Modal -->
+    <div id="viewOutgoingModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Detail Barang Keluar</h2>
+          <span class="close-modal" onclick="closeViewOutgoingModal()"
+            >&times;</span
+          >
+        </div>
+        <div class="modal-body">
+          <div class="detail-section">
+            <div class="detail-row">
+              <div class="detail-label">ID Pengeluaran:</div>
+              <div class="detail-value" id="viewOutgoingId">OUT-20250001</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Tanggal:</div>
+              <div class="detail-value" id="viewOutgoingDate">22-06-2025</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Customer/Tujuan:</div>
+              <div class="detail-value" id="viewOutgoingCustomer">
+                PT Konstruksi Baja
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Nomor Faktur:</div>
+              <div class="detail-value" id="viewOutgoingInvoice">
+                INV-20250003
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Status:</div>
+              <div class="detail-value" id="viewOutgoingStatus">
+                <span class="badge badge-success">Selesai</span>
+              </div>
+            </div>
+          </div>
+
+          <h3>Daftar Barang</h3>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Kode Barang</th>
+                  <th>Nama Barang</th>
+                  <th>Quantity</th>
+                  <th>Satuan</th>
+                </tr>
+              </thead>
+              <tbody id="viewOutgoingItems">
+                <tr>
+                  <td>STL-004</td>
+                  <td>Besi UNP 50x38</td>
+                  <td>50</td>
+                  <td>Batang</td>
+                </tr>
+                <tr>
+                  <td>STL-005</td>
+                  <td>Besi Siku 40x40</td>
+                  <td>75</td>
+                  <td>Batang</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="detail-section">
+            <div class="detail-row">
+              <div class="detail-label">Catatan:</div>
+              <div class="detail-value" id="viewOutgoingNotes">
+                Pengiriman dilakukan dengan tepat waktu. Pembayaran sudah lunas.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeViewOutgoingModal()"
+            >
+              Tutup
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="printOutgoing(1)"
+            >
+              <i class="fas fa-print"></i> Cetak
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+    <script>
+      function showAddOutgoingModal() {
+        document.getElementById("addOutgoingModal").style.display = "block";
+      }
+
+      function closeAddOutgoingModal() {
+        document.getElementById("addOutgoingModal").style.display = "none";
+      }
+
+      function viewOutgoing(id) {
+        // In a real app, you'd fetch data from an API based on id
+        document.getElementById("viewOutgoingModal").style.display = "block";
+      }
+
+      function closeViewOutgoingModal() {
+        document.getElementById("viewOutgoingModal").style.display = "none";
+      }
+
+      function printOutgoing(id) {
+        // In a real app, you'd generate a PDF or open a print view
+        alert(`Mencetak pengeluaran barang dengan ID: ${id}`);
+      }
+
+      function validateForm(form) {
+        let isValid = true;
+        const inputs = form.querySelectorAll(
+          "input[required], textarea[required], select[required]"
+        );
+
+        inputs.forEach((input) => {
+          if (!input.value.trim()) {
+            isValid = false;
+            input.classList.add("error");
+          } else {
+            input.classList.remove("error");
+          }
+        });
+
+        if (!isValid) {
+          alert("Mohon lengkapi semua field yang diperlukan!");
+        } else {
+          alert("Data barang keluar berhasil disimpan!");
+          closeAddOutgoingModal();
+        }
+
+        return false; // Prevent actual form submission
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add item button
+        document
+          .getElementById("addItemBtn")
+          .addEventListener("click", function () {
+            const itemList = document.getElementById("outgoingItems");
+            const newItem = itemList.querySelector(".item-row").cloneNode(true);
+
+            // Clear input values
+            newItem.querySelectorAll("input, select").forEach((input) => {
+              input.value = "";
+            });
+
+            // Setup remove button
+            newItem
+              .querySelector(".remove-item")
+              .addEventListener("click", function () {
+                this.closest(".item-row").remove();
+              });
+
+            itemList.appendChild(newItem);
+          });
+
+        // Initial item remove button
+        document
+          .querySelector(".remove-item")
+          .addEventListener("click", function () {
+            if (document.querySelectorAll(".item-row").length > 1) {
+              this.closest(".item-row").remove();
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

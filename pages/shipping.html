@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surat Jalan - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">3</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <div>
+              <div class="user-name">Admin KSteel</div>
+              <div class="user-role">Administrator</div>
+            </div>
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Surat Jalan</h1>
+
+        <!-- Tabs -->
+        <div class="card">
+          <div class="card-header" style="padding: 0">
+            <ul
+              class="nav-tabs"
+              style="
+                display: flex;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                border-bottom: 1px solid var(--neutral-gray);
+              "
+            >
+              <li class="nav-item">
+                <a
+                  href="#tab-pending"
+                  class="nav-link active"
+                  data-tab="pending"
+                  style="
+                    padding: 15px 20px;
+                    display: inline-block;
+                    text-decoration: none;
+                    color: var(--primary);
+                    font-weight: 600;
+                    border-bottom: 2px solid var(--primary);
+                  "
+                >
+                  Permintaan Pengiriman
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  href="#tab-shipping"
+                  class="nav-link"
+                  data-tab="shipping"
+                  style="
+                    padding: 15px 20px;
+                    display: inline-block;
+                    text-decoration: none;
+                    color: var(--dark-gray);
+                  "
+                >
+                  Surat Jalan Aktif
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  href="#tab-history"
+                  class="nav-link"
+                  data-tab="history"
+                  style="
+                    padding: 15px 20px;
+                    display: inline-block;
+                    text-decoration: none;
+                    color: var(--dark-gray);
+                  "
+                >
+                  Riwayat Surat Jalan
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Pending Shipments Tab -->
+          <div id="tab-pending" class="tab-pane active">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Faktur Siap Kirim</h2>
+                <div>
+                  <button
+                    class="btn btn-outline-primary"
+                    id="refreshPendingBtn"
+                  >
+                    <i class="fas fa-sync"></i> Refresh
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-container">
+                  <table class="table" id="pendingTable">
+                    <thead>
+                      <tr>
+                        <th>No. Faktur</th>
+                        <th>Pelanggan</th>
+                        <th>Tanggal</th>
+                        <th>Total Item</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>INV-20250003</td>
+                        <td>PT Sejahtera Makmur</td>
+                        <td>22-06-2025</td>
+                        <td>2 barang</td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-accent create-shipping-btn"
+                            data-id="3"
+                          >
+                            <i class="fas fa-truck"></i> Buat Surat Jalan
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>INV-20250001</td>
+                        <td>PT Maju Bersama</td>
+                        <td>20-06-2025</td>
+                        <td>3 barang</td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-accent create-shipping-btn"
+                            data-id="1"
+                          >
+                            <i class="fas fa-truck"></i> Buat Surat Jalan
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Shipments Tab -->
+          <div id="tab-shipping" class="tab-pane">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Surat Jalan Aktif</h2>
+                <div>
+                  <button class="btn btn-outline-primary">
+                    <i class="fas fa-file-export"></i> Export
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="table-container">
+                  <table class="table" id="activeShippingTable">
+                    <thead>
+                      <tr>
+                        <th>No. Surat Jalan</th>
+                        <th>No. Faktur</th>
+                        <th>Pelanggan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>SJ-20250001</td>
+                        <td>INV-20250001</td>
+                        <td>PT Maju Bersama</td>
+                        <td>21-06-2025</td>
+                        <td>
+                          <span class="status status-draft">Siap Kirim</span>
+                        </td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-outline-primary view-btn"
+                            data-id="1"
+                            title="Lihat Detail"
+                          >
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-primary print-btn"
+                            data-id="1"
+                            title="Cetak"
+                          >
+                            <i class="fas fa-print"></i> Cetak
+                          </button>
+                          <button
+                            class="btn btn-sm btn-accent update-status-btn"
+                            data-id="1"
+                            title="Update Status"
+                          >
+                            <i class="fas fa-truck"></i> Update Status
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>SJ-20250002</td>
+                        <td>INV-20250003</td>
+                        <td>PT Sejahtera Makmur</td>
+                        <td>22-06-2025</td>
+                        <td>
+                          <span class="status status-shipping"
+                            >Dalam Perjalanan</span
+                          >
+                        </td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-outline-primary view-btn"
+                            data-id="2"
+                            title="Lihat Detail"
+                          >
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-primary print-btn"
+                            data-id="2"
+                            title="Cetak"
+                          >
+                            <i class="fas fa-print"></i> Cetak
+                          </button>
+                          <button
+                            class="btn btn-sm btn-accent update-status-btn"
+                            data-id="2"
+                            title="Update Status"
+                          >
+                            <i class="fas fa-truck"></i> Update Status
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipment History Tab -->
+          <div id="tab-history" class="tab-pane">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Riwayat Surat Jalan</h2>
+                <div>
+                  <button class="btn btn-outline-primary">
+                    <i class="fas fa-file-export"></i> Export
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- Search and Filter -->
+                <div style="margin-bottom: 20px">
+                  <div style="display: flex; gap: 15px; align-items: flex-end">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0">
+                      <label class="form-label">Tanggal Mulai</label>
+                      <input type="date" class="form-control" />
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0">
+                      <label class="form-label">Tanggal Selesai</label>
+                      <input type="date" class="form-control" />
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0">
+                      <label class="form-label">Pelanggan</label>
+                      <select class="form-select">
+                        <option value="">Semua Pelanggan</option>
+                        <option value="1">PT Maju Bersama</option>
+                        <option value="2">CV Abadi Jaya</option>
+                        <option value="3">PT Sejahtera Makmur</option>
+                      </select>
+                    </div>
+                    <div>
+                      <button class="btn btn-primary">Filter</button>
+                      <button class="btn btn-secondary">Reset</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="table-container">
+                  <table class="table" id="historyTable">
+                    <thead>
+                      <tr>
+                        <th>No. Surat Jalan</th>
+                        <th>Pelanggan</th>
+                        <th>Tanggal Kirim</th>
+                        <th>Tanggal Terima</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>SJ-20250003</td>
+                        <td>CV Abadi Jaya</td>
+                        <td>20-06-2025</td>
+                        <td>20-06-2025</td>
+                        <td>
+                          <span class="status status-delivered">Terkirim</span>
+                        </td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-outline-primary view-btn"
+                            data-id="3"
+                            title="Lihat Detail"
+                          >
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-primary print-btn"
+                            data-id="3"
+                            title="Cetak"
+                          >
+                            <i class="fas fa-print"></i> Cetak
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>SJ-20250004</td>
+                        <td>PT Maju Bersama</td>
+                        <td>18-06-2025</td>
+                        <td>19-06-2025</td>
+                        <td>
+                          <span class="status status-delivered">Terkirim</span>
+                        </td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-outline-primary view-btn"
+                            data-id="4"
+                            title="Lihat Detail"
+                          >
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-primary print-btn"
+                            data-id="4"
+                            title="Cetak"
+                          >
+                            <i class="fas fa-print"></i> Cetak
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>SJ-20250005</td>
+                        <td>PT Sejahtera Makmur</td>
+                        <td>15-06-2025</td>
+                        <td>16-06-2025</td>
+                        <td>
+                          <span class="status status-delivered">Terkirim</span>
+                        </td>
+                        <td class="table-actions">
+                          <button
+                            class="btn btn-sm btn-outline-primary view-btn"
+                            data-id="5"
+                            title="Lihat Detail"
+                          >
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-primary print-btn"
+                            data-id="5"
+                            title="Cetak"
+                          >
+                            <i class="fas fa-print"></i> Cetak
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Shipping Modal -->
+    <div
+      id="createShippingModal"
+      class="modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      "
+    >
+      <div
+        class="modal-content"
+        style="
+          background-color: #fff;
+          margin: 2% auto;
+          padding: 20px;
+          width: 80%;
+          max-width: 800px;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          max-height: 90vh;
+          overflow-y: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+          "
+        >
+          <h2 style="margin: 0">Buat Surat Jalan</h2>
+          <span class="close-modal" style="cursor: pointer; font-size: 24px"
+            >&times;</span
+          >
+        </div>
+        <form id="createShippingForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="shippingNumber"
+                >No. Surat Jalan</label
+              >
+              <input
+                type="text"
+                id="shippingNumber"
+                class="form-control"
+                value="SJ-20250004"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shippingInvoice">No. Faktur</label>
+              <input
+                type="text"
+                id="shippingInvoice"
+                class="form-control"
+                value="INV-20250003"
+                readonly
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shippingDate">Tanggal</label>
+              <input
+                type="date"
+                id="shippingDate"
+                class="form-control"
+                value="2025-06-22"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shippingStatus">Status</label>
+              <select id="shippingStatus" class="form-select" required>
+                <option value="ready">Siap Kirim</option>
+                <option value="shipping">Dalam Perjalanan</option>
+                <option value="delivered">Terkirim</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin: 20px 0">
+            <h3>Detail Pelanggan</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="customerName"
+                  >Nama Pelanggan</label
+                >
+                <input
+                  type="text"
+                  id="customerName"
+                  class="form-control"
+                  value="PT Sejahtera Makmur"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="customerContact"
+                  >Kontak Person</label
+                >
+                <input
+                  type="text"
+                  id="customerContact"
+                  class="form-control"
+                  value="Budi Santoso"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="customerAddress"
+                  >Alamat Pengiriman</label
+                >
+                <textarea
+                  id="customerAddress"
+                  class="form-control"
+                  rows="3"
+                  required
+                >
+Jl. Panglima Sudirman 88, Surabaya</textarea
+                >
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="customerPhone"
+                  >No. Telepon</label
+                >
+                <input
+                  type="text"
+                  id="customerPhone"
+                  class="form-control"
+                  value="031-8873421"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div style="margin: 20px 0">
+            <h3>Detail Pengiriman</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="driverName">Nama Supir</label>
+                <input
+                  type="text"
+                  id="driverName"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="driverPhone">No. HP Supir</label>
+                <input
+                  type="text"
+                  id="driverPhone"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="vehicleType"
+                  >Jenis Kendaraan</label
+                >
+                <select id="vehicleType" class="form-select" required>
+                  <option value="">Pilih Jenis Kendaraan</option>
+                  <option value="pick-up">Pick Up</option>
+                  <option value="truck">Truk</option>
+                  <option value="container">Container</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="vehicleNumber"
+                  >No. Plat Kendaraan</label
+                >
+                <input
+                  type="text"
+                  id="vehicleNumber"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div style="margin: 20px 0">
+            <h3>Detail Barang</h3>
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Kode</th>
+                    <th>Nama Barang</th>
+                    <th>Jumlah</th>
+                    <th>Satuan</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>STL-001</td>
+                    <td>Besi Beton 10mm</td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        value="100"
+                        min="1"
+                        style="width: 80px"
+                      />
+                    </td>
+                    <td>Batang</td>
+                    <td><span class="status status-ready">Siap</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>STL-004</td>
+                    <td>Besi UNP 50x38</td>
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        value="50"
+                        min="1"
+                        style="width: 80px"
+                      />
+                    </td>
+                    <td>Batang</td>
+                    <td><span class="status status-ready">Siap</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="6">
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-plus"></i> Tambah Barang
+                      </button>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="shippingNotes"
+              >Catatan Pengiriman</label
+            >
+            <textarea
+              id="shippingNotes"
+              class="form-control"
+              rows="3"
+            ></textarea>
+          </div>
+        </form>
+        <div style="text-align: right; margin-top: 20px">
+          <button
+            class="btn btn-secondary close-modal"
+            style="margin-right: 10px"
+          >
+            Batal
+          </button>
+          <button class="btn btn-outline-primary print-shipping">
+            <i class="fas fa-print"></i> Cetak
+          </button>
+          <button class="btn btn-accent" id="saveShippingBtn">Simpan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Shipping Modal -->
+    <div
+      id="viewShippingModal"
+      class="modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      "
+    >
+      <div
+        class="modal-content"
+        style="
+          background-color: #fff;
+          margin: 2% auto;
+          padding: 20px;
+          width: 80%;
+          max-width: 800px;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+          max-height: 90vh;
+          overflow-y: auto;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+          "
+        >
+          <h2 style="margin: 0">Detail Surat Jalan</h2>
+          <div>
+            <button
+              class="btn btn-sm btn-outline-primary print-shipping"
+              style="margin-right: 10px"
+            >
+              <i class="fas fa-print"></i> Cetak
+            </button>
+            <span class="close-modal" style="cursor: pointer; font-size: 24px"
+              >&times;</span
+            >
+          </div>
+        </div>
+
+        <div
+          class="shipping-detail"
+          style="
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+          "
+        >
+          <div style="display: flex; justify-content: space-between">
+            <div>
+              <div style="font-weight: bold; font-size: 20px">
+                PT KSteel Nusantara
+              </div>
+              <div>Jl. Industri Raya No. 25</div>
+              <div>Jakarta Timur, 13910</div>
+              <div>Telp: 021-8765432</div>
+            </div>
+            <div style="text-align: right">
+              <div
+                style="
+                  font-weight: bold;
+                  font-size: 24px;
+                  color: #003366;
+                  margin-bottom: 10px;
+                "
+              >
+                SURAT JALAN
+              </div>
+              <div><strong>No. Surat Jalan:</strong> SJ-20250002</div>
+              <div><strong>Tanggal:</strong> 22-06-2025</div>
+              <div><strong>No. Faktur:</strong> INV-20250003</div>
+              <div>
+                <strong>Status:</strong>
+                <span class="status status-shipping">Dalam Perjalanan</span>
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin: 20px 0;
+              padding: 10px 0;
+              border-top: 1px solid #e0e0e0;
+              border-bottom: 1px solid #e0e0e0;
+            "
+          >
+            <div>
+              <div style="font-weight: bold; margin-bottom: 5px">Pengirim:</div>
+              <div>PT KSteel Nusantara</div>
+              <div>Jl. Industri Raya No. 25</div>
+              <div>Jakarta Timur</div>
+            </div>
+            <div>
+              <div style="font-weight: bold; margin-bottom: 5px">
+                Dikirim Ke:
+              </div>
+              <div>PT Sejahtera Makmur</div>
+              <div>Jl. Panglima Sudirman 88</div>
+              <div>Surabaya</div>
+              <div>031-8873421 (Budi Santoso)</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin: 20px 0;
+              padding: 10px;
+              border-radius: 8px;
+              background-color: #f9f9f9;
+            "
+          >
+            <h3 style="margin-top: 0; font-size: 16px">Detail Pengiriman</h3>
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px"
+            >
+              <div>
+                <div><strong>Nama Supir:</strong> Andi Pratama</div>
+                <div><strong>No. HP Supir:</strong> 0812-3456-7890</div>
+              </div>
+              <div>
+                <div><strong>Jenis Kendaraan:</strong> Truk</div>
+                <div><strong>No. Plat:</strong> B 1234 KSN</div>
+              </div>
+            </div>
+          </div>
+
+          <table class="table" style="margin-bottom: 20px">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Nama Barang</th>
+                <th>Jumlah</th>
+                <th>Satuan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>STL-001</td>
+                <td>Besi Beton 10mm</td>
+                <td>100</td>
+                <td>Batang</td>
+              </tr>
+              <tr>
+                <td>STL-004</td>
+                <td>Besi UNP 50x38</td>
+                <td>50</td>
+                <td>Batang</td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            style="
+              margin: 20px 0;
+              padding: 15px;
+              border-radius: 8px;
+              background-color: #f5f9ff;
+              border: 1px solid #e0e8f7;
+            "
+          >
+            <h3 style="margin-top: 0; font-size: 16px; color: var(--primary)">
+              Status Pengiriman
+            </h3>
+            <div style="display: flex; margin-top: 15px">
+              <div style="flex: 1; position: relative; padding-left: 30px">
+                <div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: var(--accent);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-check" style="font-size: 12px"></i>
+                </div>
+                <div style="font-weight: 600">Surat Jalan Dibuat</div>
+                <div style="font-size: 13px; color: var(--dark-gray)">
+                  22-06-2025 08:30
+                </div>
+              </div>
+              <div style="flex: 1; position: relative; padding-left: 30px">
+                <div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: var(--accent);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-check" style="font-size: 12px"></i>
+                </div>
+                <div style="font-weight: 600">Dalam Perjalanan</div>
+                <div style="font-size: 13px; color: var(--dark-gray)">
+                  22-06-2025 09:15
+                </div>
+              </div>
+              <div style="flex: 1; position: relative; padding-left: 30px">
+                <div
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: var(--neutral-gray);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                  "
+                >
+                  <i class="fas fa-clock" style="font-size: 12px"></i>
+                </div>
+                <div style="font-weight: 600">Terkirim</div>
+                <div style="font-size: 13px; color: var(--dark-gray)">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="
+              margin: 20px 0;
+              padding: 15px;
+              border-radius: 8px;
+              background-color: #fafafa;
+              border: 1px solid #eee;
+            "
+          >
+            <h3 style="margin-top: 0; font-size: 16px">Catatan Pengiriman</h3>
+            <p>
+              Barang harus dikirim dalam kondisi terbungkus rapat. Harap hubungi
+              penerima sebelum pengiriman tiba.
+            </p>
+          </div>
+
+          <div
+            style="
+              margin-top: 30px;
+              display: flex;
+              justify-content: space-between;
+            "
+          >
+            <div style="text-align: center">
+              <div style="margin-bottom: 70px">Pengirim,</div>
+              <div
+                style="
+                  border-top: 1px solid #333;
+                  padding-top: 5px;
+                  width: 150px;
+                "
+              >
+                (........................)
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div style="margin-bottom: 70px">Penerima,</div>
+              <div
+                style="
+                  border-top: 1px solid #333;
+                  padding-top: 5px;
+                  width: 150px;
+                "
+              >
+                (........................)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 20px">
+          <button class="btn btn-secondary close-modal">Tutup</button>
+          <button class="btn btn-accent update-status-btn">
+            <i class="fas fa-truck"></i> Update Status
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Update Status Modal -->
+    <div
+      id="updateStatusModal"
+      class="modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      "
+    >
+      <div
+        class="modal-content"
+        style="
+          background-color: #fff;
+          margin: 10% auto;
+          padding: 20px;
+          width: 50%;
+          max-width: 500px;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+          "
+        >
+          <h2 style="margin: 0">Update Status Pengiriman</h2>
+          <span class="close-modal" style="cursor: pointer; font-size: 24px"
+            >&times;</span
+          >
+        </div>
+        <form id="updateStatusForm">
+          <div class="form-group">
+            <label class="form-label" for="updateShippingId"
+              >No. Surat Jalan</label
+            >
+            <input
+              type="text"
+              id="updateShippingId"
+              class="form-control"
+              value="SJ-20250002"
+              readonly
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="updateShippingStatus">Status</label>
+            <select id="updateShippingStatus" class="form-select" required>
+              <option value="ready">Siap Kirim</option>
+              <option value="shipping" selected>Dalam Perjalanan</option>
+              <option value="delivered">Terkirim</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="updateShippingDate"
+              >Tanggal Update</label
+            >
+            <input
+              type="date"
+              id="updateShippingDate"
+              class="form-control"
+              value="2025-06-22"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="updateDriverConfirm"
+              >Konfirmasi Supir</label
+            >
+            <select id="updateDriverConfirm" class="form-select">
+              <option value="yes">Sudah Konfirmasi</option>
+              <option value="no">Belum Konfirmasi</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="updateShippingLocation"
+              >Lokasi Terakhir</label
+            >
+            <input
+              type="text"
+              id="updateShippingLocation"
+              class="form-control"
+              placeholder="Mis: Tol Jagorawi KM 10"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="updateDeliveryEvidence"
+              >Bukti Pengiriman</label
+            >
+            <input
+              type="file"
+              id="updateDeliveryEvidence"
+              class="form-control"
+            />
+            <small class="form-text text-muted"
+              >Upload foto bukti serah terima jika status Terkirim</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="updateShippingNotes">Catatan</label>
+            <textarea
+              id="updateShippingNotes"
+              class="form-control"
+              rows="3"
+            ></textarea>
+          </div>
+        </form>
+        <div style="text-align: right; margin-top: 20px">
+          <button
+            class="btn btn-secondary close-modal"
+            style="margin-right: 10px"
+          >
+            Batal
+          </button>
+          <button class="btn btn-accent" id="saveStatusBtn">Simpan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tab Navigation
+        const tabLinks = document.querySelectorAll(".nav-link");
+        tabLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Remove active class from all tabs
+            tabLinks.forEach((tab) => {
+              tab.classList.remove("active");
+              tab.style.borderBottom = "none";
+              tab.style.color = "var(--dark-gray)";
+            });
+
+            // Add active class to clicked tab
+            this.classList.add("active");
+            this.style.borderBottom = "2px solid var(--primary)";
+            this.style.color = "var(--primary)";
+
+            // Hide all tab panes
+            const tabPanes = document.querySelectorAll(".tab-pane");
+            tabPanes.forEach((pane) => {
+              pane.classList.remove("active");
+              pane.style.display = "none";
+            });
+
+            // Show selected tab pane
+            const tabId = this.getAttribute("data-tab");
+            const tabPane = document.getElementById(`tab-${tabId}`);
+            tabPane.classList.add("active");
+            tabPane.style.display = "block";
+          });
+        });
+
+        // Create Shipping Buttons
+        const createShippingBtns = document.querySelectorAll(
+          ".create-shipping-btn"
+        );
+        createShippingBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const invoiceId = this.getAttribute("data-id");
+            createShipping(invoiceId);
+          });
+        });
+
+        // View Shipping Buttons
+        const viewButtons = document.querySelectorAll(".view-btn");
+        viewButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const shippingId = this.getAttribute("data-id");
+            viewShipping(shippingId);
+          });
+        });
+
+        // Update Status Buttons
+        const updateStatusBtns =
+          document.querySelectorAll(".update-status-btn");
+        updateStatusBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const shippingId =
+              this.getAttribute("data-id") ||
+              document.getElementById("updateShippingId").value;
+            updateStatus(shippingId);
+          });
+        });
+
+        // Print Shipping Buttons
+        const printButtons = document.querySelectorAll(
+          ".print-btn, .print-shipping"
+        );
+        printButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const shippingId = this.getAttribute("data-id") || "current";
+            printShipping(shippingId);
+          });
+        });
+
+        // Close Modal Buttons
+        const closeButtons = document.querySelectorAll(".close-modal");
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            document.getElementById("createShippingModal").style.display =
+              "none";
+            document.getElementById("viewShippingModal").style.display = "none";
+            document.getElementById("updateStatusModal").style.display = "none";
+          });
+        });
+
+        // Save Shipping Button
+        document
+          .getElementById("saveShippingBtn")
+          .addEventListener("click", function () {
+            const form = document.getElementById("createShippingForm");
+
+            if (validateForm(form)) {
+              // In a real app, you'd send this data to an API
+              alert("Surat Jalan berhasil dibuat!");
+              document.getElementById("createShippingModal").style.display =
+                "none";
+            }
+          });
+
+        // Save Status Button
+        document
+          .getElementById("saveStatusBtn")
+          .addEventListener("click", function () {
+            const form = document.getElementById("updateStatusForm");
+
+            if (validateForm(form)) {
+              // In a real app, you'd send this data to an API
+              alert("Status pengiriman berhasil diperbarui!");
+              document.getElementById("updateStatusModal").style.display =
+                "none";
+            }
+          });
+
+        // Refresh Pending Button
+        document
+          .getElementById("refreshPendingBtn")
+          .addEventListener("click", function () {
+            alert("Memperbarui daftar faktur siap kirim...");
+            // In a real app, you'd fetch new data from an API
+          });
+      });
+
+      function validateForm(form) {
+        // Simple validation
+        let isValid = true;
+        const inputs = form.querySelectorAll(
+          "input[required], select[required], textarea[required]"
+        );
+
+        inputs.forEach((input) => {
+          if (!input.value.trim()) {
+            isValid = false;
+            input.classList.add("error");
+          } else {
+            input.classList.remove("error");
+          }
+        });
+
+        if (!isValid) {
+          alert("Mohon lengkapi semua field yang diperlukan!");
+        }
+
+        return isValid;
+      }
+
+      function createShipping(invoiceId) {
+        // In a real app, you'd fetch invoice data from an API
+        document.getElementById("createShippingModal").style.display = "block";
+      }
+
+      function viewShipping(id) {
+        // In a real app, you'd fetch shipping data from an API
+        document.getElementById("viewShippingModal").style.display = "block";
+      }
+
+      function updateStatus(id) {
+        // In a real app, you'd fetch current status from an API
+        document.getElementById("updateStatusModal").style.display = "block";
+        document.getElementById("updateShippingId").value = `SJ-2025000${id}`;
+      }
+
+      function printShipping(id) {
+        // In a real app, you'd generate a PDF or open a print view
+        alert(`Mencetak surat jalan dengan ID: ${id}`);
+      }
+    </script>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+  </body>
+</html>

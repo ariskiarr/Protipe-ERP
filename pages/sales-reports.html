@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan Penjualan - Staff Sales - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index-sales.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">4</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <!-- User info will be dynamically populated -->
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Laporan Penjualan</h1>
+
+        <!-- Report Generator -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Generate Laporan</h2>
+            <div>
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-sync"></i> Refresh Data
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-bottom: 20px;
+              "
+            >
+              <div class="form-group" style="flex: 1; min-width: 200px">
+                <label class="form-label">Jenis Laporan</label>
+                <select class="form-select" id="reportType">
+                  <option value="sales-summary">Ringkasan Penjualan</option>
+                  <option value="sales-by-product">Penjualan per Produk</option>
+                  <option value="sales-by-customer">
+                    Penjualan per Pelanggan
+                  </option>
+                  <option value="sales-trend">Tren Penjualan</option>
+                </select>
+              </div>
+              <div class="form-group" style="flex: 1; min-width: 200px">
+                <label class="form-label">Rentang Tanggal</label>
+                <div style="display: flex; gap: 10px">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="startDate"
+                    value="2025-06-01"
+                  />
+                  <span style="align-self: center">s/d</span>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="endDate"
+                    value="2025-06-22"
+                  />
+                </div>
+              </div>
+              <div class="form-group" style="flex: 1; min-width: 200px">
+                <label class="form-label">Pelanggan</label>
+                <select class="form-select" id="reportCustomer">
+                  <option value="">Semua Pelanggan</option>
+                  <option value="1">PT Maju Bersama</option>
+                  <option value="2">CV Abadi Jaya</option>
+                  <option value="3">PT Sejahtera Makmur</option>
+                </select>
+              </div>
+            </div>
+            <div style="text-align: right">
+              <button class="btn btn-accent" id="generateReportBtn">
+                <i class="fas fa-file-alt"></i> Generate Laporan
+              </button>
+              <button class="btn btn-primary" id="exportReportBtn">
+                <i class="fas fa-file-export"></i> Export ke Excel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Summary -->
+        <div class="card" style="margin-top: 20px">
+          <div class="card-header">
+            <h2 class="card-title">Ringkasan Penjualan</h2>
+          </div>
+          <div class="card-body">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px">
+              <!-- KPI Cards -->
+              <div class="stat-card" style="flex: 1; min-width: 150px">
+                <div class="stat-card-info">
+                  <div class="stat-card-title">Total Penjualan</div>
+                  <div class="stat-card-value">Rp 328,5 jt</div>
+                  <div class="stat-card-change positive">
+                    <i class="fas fa-arrow-up"></i> 12,5%
+                  </div>
+                </div>
+                <div class="stat-card-icon primary">
+                  <i class="fas fa-money-bill-wave"></i>
+                </div>
+              </div>
+
+              <div class="stat-card" style="flex: 1; min-width: 150px">
+                <div class="stat-card-info">
+                  <div class="stat-card-title">Jumlah Transaksi</div>
+                  <div class="stat-card-value">87</div>
+                  <div class="stat-card-change positive">
+                    <i class="fas fa-arrow-up"></i> 8,2%
+                  </div>
+                </div>
+                <div class="stat-card-icon accent">
+                  <i class="fas fa-file-invoice"></i>
+                </div>
+              </div>
+
+              <div class="stat-card" style="flex: 1; min-width: 150px">
+                <div class="stat-card-info">
+                  <div class="stat-card-title">Rata-rata Transaksi</div>
+                  <div class="stat-card-value">Rp 3,8 jt</div>
+                  <div class="stat-card-change positive">
+                    <i class="fas fa-arrow-up"></i> 3,8%
+                  </div>
+                </div>
+                <div class="stat-card-icon success">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+              </div>
+
+              <div class="stat-card" style="flex: 1; min-width: 150px">
+                <div class="stat-card-info">
+                  <div class="stat-card-title">Target Tercapai</div>
+                  <div class="stat-card-value">78,5%</div>
+                  <div class="stat-card-change negative">
+                    <i class="fas fa-arrow-down"></i> 3,2%
+                  </div>
+                </div>
+                <div class="stat-card-icon warning">
+                  <i class="fas fa-bullseye"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Report Charts -->
+        <div
+          style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px"
+        >
+          <div class="card" style="flex: 2; min-width: 350px">
+            <div class="card-header">
+              <h2 class="card-title">Tren Penjualan Bulanan</h2>
+              <div>
+                <button
+                  class="btn btn-sm btn-outline-primary active"
+                  data-period="month"
+                >
+                  6 Bulan
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  data-period="year"
+                >
+                  1 Tahun
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="salesTrendChart" height="250"></canvas>
+            </div>
+          </div>
+
+          <div class="card" style="flex: 1; min-width: 350px">
+            <div class="card-header">
+              <h2 class="card-title">Top 5 Produk</h2>
+            </div>
+            <div class="card-body">
+              <canvas id="topProductsChart" height="250"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales by Customer Chart -->
+        <div class="card" style="margin-top: 20px">
+          <div class="card-header">
+            <h2 class="card-title">Penjualan per Pelanggan</h2>
+            <div>
+              <button class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-download"></i> Export
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="height: 300px">
+              <canvas id="customerSalesChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Sales Table -->
+        <div class="card" style="margin-top: 20px">
+          <div class="card-header">
+            <h2 class="card-title">Transaksi Terbaru</h2>
+            <div class="input-group" style="width: 300px">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Cari transaksi..."
+              />
+              <button class="btn btn-outline-primary">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>No. Faktur</th>
+                    <th>Pelanggan</th>
+                    <th>Tanggal</th>
+                    <th>Nilai</th>
+                    <th>Status Pembayaran</th>
+                    <th>Status Pengiriman</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>INV-20250003</td>
+                    <td>PT Sejahtera Makmur</td>
+                    <td>22-06-2025</td>
+                    <td>Rp 48.500.000</td>
+                    <td><span class="status status-pending">Menunggu</span></td>
+                    <td>
+                      <span class="status status-shipping"
+                        >Dalam Pengiriman</span
+                      >
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-20250002</td>
+                    <td>CV Abadi Jaya</td>
+                    <td>21-06-2025</td>
+                    <td>Rp 32.750.000</td>
+                    <td><span class="status status-paid">Lunas</span></td>
+                    <td>
+                      <span class="status status-delivered">Terkirim</span>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>INV-20250001</td>
+                    <td>PT Maju Bersama</td>
+                    <td>20-06-2025</td>
+                    <td>Rp 54.200.000</td>
+                    <td><span class="status status-paid">Lunas</span></td>
+                    <td>
+                      <span class="status status-delivered">Terkirim</span>
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination -->
+            <div class="pagination">
+              <button class="btn btn-sm btn-outline-primary">&laquo;</button>
+              <button class="btn btn-sm btn-primary">1</button>
+              <button class="btn btn-sm btn-outline-primary">2</button>
+              <button class="btn btn-sm btn-outline-primary">3</button>
+              <button class="btn btn-sm btn-outline-primary">&raquo;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Sales Trend Chart
+        const salesTrendCtx = document
+          .getElementById("salesTrendChart")
+          .getContext("2d");
+        const salesTrendChart = new Chart(salesTrendCtx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"],
+            datasets: [
+              {
+                label: "Penjualan (dalam jutaan)",
+                data: [42.5, 38.2, 45.8, 50.2, 55.1, 48.5],
+                backgroundColor: "rgba(0, 51, 102, 0.1)",
+                borderColor: "#003366",
+                tension: 0.3,
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: false,
+                ticks: {
+                  callback: function (value) {
+                    return value + " jt";
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        // Top Products Chart
+        const topProductsCtx = document
+          .getElementById("topProductsChart")
+          .getContext("2d");
+        const topProductsChart = new Chart(topProductsCtx, {
+          type: "bar",
+          data: {
+            labels: [
+              "Besi Beton 10mm",
+              "Besi UNP 50x38",
+              "Besi Siku 40x40",
+              'Pipa Besi 2"',
+              "Plat 2mm",
+            ],
+            datasets: [
+              {
+                label: "Penjualan (dalam jutaan)",
+                data: [68.5, 54.2, 45.8, 42.3, 35.7],
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.7)",
+                  "rgba(54, 162, 235, 0.7)",
+                  "rgba(255, 206, 86, 0.7)",
+                  "rgba(75, 192, 192, 0.7)",
+                  "rgba(153, 102, 255, 0.7)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: "y",
+            scales: {
+              x: {
+                ticks: {
+                  callback: function (value) {
+                    return value + " jt";
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        // Customer Sales Chart
+        const customerSalesCtx = document
+          .getElementById("customerSalesChart")
+          .getContext("2d");
+        const customerSalesChart = new Chart(customerSalesCtx, {
+          type: "bar",
+          data: {
+            labels: [
+              "PT Maju Bersama",
+              "CV Abadi Jaya",
+              "PT Sejahtera Makmur",
+              "PT Karya Logistik",
+              "CV Baja Utama",
+            ],
+            datasets: [
+              {
+                label: "Penjualan (dalam jutaan)",
+                data: [82.5, 65.8, 48.5, 32.6, 28.4],
+                backgroundColor: "#3498db",
+                borderColor: "#2980b9",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function (value) {
+                    return value + " jt";
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        // Period buttons
+        document.querySelectorAll("[data-period]").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            document
+              .querySelectorAll("[data-period]")
+              .forEach((b) => b.classList.remove("active"));
+            this.classList.add("active");
+
+            const period = this.getAttribute("data-period");
+            updateTrendChart(period);
+          });
+        });
+
+        function updateTrendChart(period) {
+          if (period === "month") {
+            salesTrendChart.data.labels = [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "Mei",
+              "Jun",
+            ];
+            salesTrendChart.data.datasets[0].data = [
+              42.5, 38.2, 45.8, 50.2, 55.1, 48.5,
+            ];
+          } else {
+            salesTrendChart.data.labels = [
+              "Jul",
+              "Agt",
+              "Sep",
+              "Okt",
+              "Nov",
+              "Des",
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "Mei",
+              "Jun",
+            ];
+            salesTrendChart.data.datasets[0].data = [
+              35.2, 38.9, 40.5, 43.2, 48.7, 52.3, 42.5, 38.2, 45.8, 50.2, 55.1,
+              48.5,
+            ];
+          }
+
+          salesTrendChart.update();
+        }
+
+        // Generate report button
+        document
+          .getElementById("generateReportBtn")
+          .addEventListener("click", function () {
+            const reportType = document.getElementById("reportType").value;
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+            const customer = document.getElementById("reportCustomer").value;
+
+            alert(
+              `Generating ${reportType} report from ${startDate} to ${endDate}${
+                customer ? " for customer ID: " + customer : ""
+              }`
+            );
+          });
+
+        // Export report button
+        document
+          .getElementById("exportReportBtn")
+          .addEventListener("click", function () {
+            alert("Exporting report to Excel...");
+          });
+      });
+    </script>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+  </body>
+</html>

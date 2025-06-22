@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">3</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <!-- User info will be dynamically populated -->
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Laporan</h1>
+
+        <div class="report-wrapper">
+          <div class="report-sidebar">
+            <h3>Kategori Laporan</h3>
+            <ul class="report-menu">
+              <li class="active" data-report="sales">
+                <i class="fas fa-chart-line"></i>
+                <span>Laporan Penjualan</span>
+              </li>
+              <li data-report="inventory">
+                <i class="fas fa-boxes"></i>
+                <span>Laporan Persediaan</span>
+              </li>
+              <li data-report="financial">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Laporan Keuangan</span>
+              </li>
+              <li data-report="purchasing">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Laporan Pembelian</span>
+              </li>
+              <li data-report="customer">
+                <i class="fas fa-users"></i>
+                <span>Laporan Pelanggan</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="report-content">
+            <!-- Filter Section -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h2 class="card-title">Filter Laporan</h2>
+              </div>
+              <div class="card-body">
+                <div class="filter-section">
+                  <div class="filter-group">
+                    <div class="input-group">
+                      <label for="reportType">Jenis Laporan:</label>
+                      <select class="form-control" id="reportType">
+                        <option value="summary">Ringkasan Penjualan</option>
+                        <option value="detail">Detail Penjualan</option>
+                        <option value="product">Penjualan per Produk</option>
+                        <option value="customer">
+                          Penjualan per Pelanggan
+                        </option>
+                        <option value="trend">Tren Penjualan</option>
+                      </select>
+                    </div>
+                    <div class="input-group">
+                      <label for="startDate">Tanggal Mulai:</label>
+                      <input
+                        type="date"
+                        id="startDate"
+                        class="form-control"
+                        value="2025-01-01"
+                      />
+                    </div>
+                    <div class="input-group">
+                      <label for="endDate">Tanggal Akhir:</label>
+                      <input
+                        type="date"
+                        id="endDate"
+                        class="form-control"
+                        value="2025-06-22"
+                      />
+                    </div>
+                    <div class="input-group">
+                      <label for="reportCustomer">Pelanggan:</label>
+                      <select class="form-control" id="reportCustomer">
+                        <option value="">Semua Pelanggan</option>
+                        <option value="1">PT Konstruksi Baja</option>
+                        <option value="2">CV Maju Jaya</option>
+                        <option value="3">PT Bangun Perkasa</option>
+                      </select>
+                    </div>
+                    <div class="input-group">
+                      <label for="reportCategory">Kategori:</label>
+                      <select class="form-control" id="reportCategory">
+                        <option value="">Semua Kategori</option>
+                        <option value="Besi">Besi</option>
+                        <option value="Pipa">Pipa</option>
+                        <option value="Plat">Plat</option>
+                      </select>
+                    </div>
+                    <button class="btn btn-primary" id="generateReportBtn">
+                      <i class="fas fa-sync-alt"></i> Generate
+                    </button>
+                    <div class="export-options">
+                      <button class="btn btn-outline-primary" id="exportPdfBtn">
+                        <i class="fas fa-file-pdf"></i> PDF
+                      </button>
+                      <button
+                        class="btn btn-outline-primary"
+                        id="exportExcelBtn"
+                      >
+                        <i class="fas fa-file-excel"></i> Excel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Report Charts -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h2 class="card-title">Grafik Penjualan</h2>
+              </div>
+              <div class="card-body">
+                <div
+                  class="chart-container"
+                  style="position: relative; height: 300px"
+                >
+                  <canvas id="salesChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Report Summary -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h2 class="card-title">Ringkasan Penjualan</h2>
+              </div>
+              <div class="card-body">
+                <div class="stat-cards">
+                  <div class="stat-card">
+                    <div class="stat-card-info">
+                      <h3>Total Penjualan</h3>
+                      <h2>Rp 2,45 Miliar</h2>
+                      <p>Jan - Jun 2025</p>
+                    </div>
+                    <div class="stat-card-icon">
+                      <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                  </div>
+                  <div class="stat-card success">
+                    <div class="stat-card-info">
+                      <h3>Total Transaksi</h3>
+                      <h2>358</h2>
+                      <p>Jan - Jun 2025</p>
+                    </div>
+                    <div class="stat-card-icon">
+                      <i class="fas fa-shopping-cart"></i>
+                    </div>
+                  </div>
+                  <div class="stat-card info">
+                    <div class="stat-card-info">
+                      <h3>Rata-rata Transaksi</h3>
+                      <h2>Rp 6,8 Juta</h2>
+                      <p>Jan - Jun 2025</p>
+                    </div>
+                    <div class="stat-card-icon">
+                      <i class="fas fa-chart-bar"></i>
+                    </div>
+                  </div>
+                  <div class="stat-card warning">
+                    <div class="stat-card-info">
+                      <h3>YoY Growth</h3>
+                      <h2>+15,8%</h2>
+                      <p>vs 2024</p>
+                    </div>
+                    <div class="stat-card-icon">
+                      <i class="fas fa-chart-line"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Report Table -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h2 class="card-title">Data Penjualan</h2>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Tanggal</th>
+                        <th>No. Faktur</th>
+                        <th>Pelanggan</th>
+                        <th>Total Item</th>
+                        <th>Total Nilai</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>22-06-2025</td>
+                        <td>INV-20250126</td>
+                        <td>PT Konstruksi Baja</td>
+                        <td>3</td>
+                        <td>Rp 15.500.000</td>
+                        <td><span class="badge badge-success">Lunas</span></td>
+                      </tr>
+                      <tr>
+                        <td>21-06-2025</td>
+                        <td>INV-20250125</td>
+                        <td>CV Maju Jaya</td>
+                        <td>5</td>
+                        <td>Rp 28.750.000</td>
+                        <td><span class="badge badge-success">Lunas</span></td>
+                      </tr>
+                      <tr>
+                        <td>20-06-2025</td>
+                        <td>INV-20250124</td>
+                        <td>PT Bangun Perkasa</td>
+                        <td>4</td>
+                        <td>Rp 22.800.000</td>
+                        <td><span class="badge badge-success">Lunas</span></td>
+                      </tr>
+                      <tr>
+                        <td>20-06-2025</td>
+                        <td>INV-20250123</td>
+                        <td>PT Konstruksi Prima</td>
+                        <td>2</td>
+                        <td>Rp 9.550.000</td>
+                        <td>
+                          <span class="badge badge-warning">Jatuh Tempo</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>19-06-2025</td>
+                        <td>INV-20250122</td>
+                        <td>CV Baja Sejati</td>
+                        <td>3</td>
+                        <td>Rp 17.250.000</td>
+                        <td><span class="badge badge-success">Lunas</span></td>
+                      </tr>
+                      <tr>
+                        <td>19-06-2025</td>
+                        <td>INV-20250121</td>
+                        <td>PT Steel Indonesia</td>
+                        <td>7</td>
+                        <td>Rp 45.850.000</td>
+                        <td><span class="badge badge-success">Lunas</span></td>
+                      </tr>
+                      <tr>
+                        <td>18-06-2025</td>
+                        <td>INV-20250120</td>
+                        <td>CV Konstruksi Andalan</td>
+                        <td>2</td>
+                        <td>Rp 12.450.000</td>
+                        <td><span class="badge badge-success">Lunas</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pagination-container">
+                  <div class="pagination-info">
+                    Menampilkan 1-7 dari 358 entri
+                  </div>
+                  <div class="pagination">
+                    <button class="page-btn" disabled>
+                      <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">5</button>
+                    <button class="page-btn">
+                      <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize sales chart
+        const salesChartCtx = document
+          .getElementById("salesChart")
+          .getContext("2d");
+        const salesChart = new Chart(salesChartCtx, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"],
+            datasets: [
+              {
+                label: "Penjualan 2025",
+                data: [325.5, 392.8, 415.2, 450.1, 478.5, 385.9],
+                borderColor: "rgba(0, 51, 102, 1)",
+                backgroundColor: "rgba(0, 51, 102, 0.1)",
+                fill: true,
+                tension: 0.3,
+              },
+              {
+                label: "Penjualan 2024",
+                data: [290.2, 345.5, 372.0, 398.7, 410.5, 318.4],
+                borderColor: "rgba(153, 153, 153, 1)",
+                backgroundColor: "rgba(0, 0, 0, 0)",
+                borderDash: [5, 5],
+                fill: false,
+                tension: 0.3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              title: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Nilai (dalam Juta Rupiah)",
+                },
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: "Bulan",
+                },
+              },
+            },
+          },
+        });
+
+        // Report Menu Click Handlers
+        document.querySelectorAll(".report-menu li").forEach((item) => {
+          item.addEventListener("click", function () {
+            document.querySelectorAll(".report-menu li").forEach((li) => {
+              li.classList.remove("active");
+            });
+            this.classList.add("active");
+
+            const reportType = this.getAttribute("data-report");
+            alert(`Menampilkan laporan: ${reportType}`);
+            // In a real app, you'd load different report content here
+          });
+        });
+
+        // Generate Report Button
+        document
+          .getElementById("generateReportBtn")
+          .addEventListener("click", function () {
+            const reportType = document.getElementById("reportType").value;
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+            const customer = document.getElementById("reportCustomer").value;
+            const category = document.getElementById("reportCategory").value;
+
+            alert(
+              `Menghasilkan laporan ${reportType} dari ${startDate} hingga ${endDate}`
+            );
+            // In a real app, you'd fetch report data from the server
+          });
+
+        // Export Buttons
+        document
+          .getElementById("exportPdfBtn")
+          .addEventListener("click", function () {
+            alert("Mengekspor laporan ke PDF...");
+          });
+
+        document
+          .getElementById("exportExcelBtn")
+          .addEventListener("click", function () {
+            alert("Mengekspor laporan ke Excel...");
+          });
+      });
+    </script>
+  </body>
+</html>

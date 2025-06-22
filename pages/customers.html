@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Pelanggan - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-logo">
+          <img src="../images/logo.svg" alt="KSteel Logo" />
+          <span>KSteel ERP</span>
+        </a>
+      </div>
+      <ul class="sidebar-menu">
+        <!-- Menu items will be dynamically populated based on role -->
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <button class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-right">
+          <div class="header-icons">
+            <div class="header-icon">
+              <i class="fas fa-bell"></i>
+              <div class="notification-badge">3</div>
+            </div>
+            <div class="header-icon">
+              <i class="fas fa-envelope"></i>
+              <div class="notification-badge">2</div>
+            </div>
+          </div>
+          <div class="user-info">
+            <div>
+              <div class="user-name">Admin KSteel</div>
+              <div class="user-role">Administrator</div>
+            </div>
+          </div>
+          <button class="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-container">
+        <h1 class="page-title">Data Pelanggan</h1>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Daftar Pelanggan</h2>
+            <div>
+              <button class="btn btn-accent" id="addCustomerBtn">
+                <i class="fas fa-plus"></i> Tambah Pelanggan
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="table" id="customerTable">
+                <thead>
+                  <tr>
+                    <th>Nama Pelanggan</th>
+                    <th>Telepon</th>
+                    <th>Alamat</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PT Maju Bersama</td>
+                    <td>021-5553210</td>
+                    <td>Jl. Raya Kelapa Dua No. 10, Jakarta Barat</td>
+                    <td>Active</td>
+                    <td class="table-actions">
+                      <button
+                        class="btn btn-sm btn-outline-primary edit-btn"
+                        data-id="1"
+                        data-toggle="modal"
+                        data-target="#editCustomerModal"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary delete-btn"
+                        data-id="1"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>CV Abadi Jaya</td>
+                    <td>022-6784512</td>
+                    <td>Jl. Gatot Subroto 123, Bandung</td>
+                    <td>Active</td>
+                    <td class="table-actions">
+                      <button
+                        class="btn btn-sm btn-outline-primary edit-btn"
+                        data-id="2"
+                        data-toggle="modal"
+                        data-target="#editCustomerModal"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary delete-btn"
+                        data-id="2"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PT Sejahtera Makmur</td>
+                    <td>031-8873421</td>
+                    <td>Jl. Panglima Sudirman 88, Surabaya</td>
+                    <td>Inactive</td>
+                    <td class="table-actions">
+                      <button
+                        class="btn btn-sm btn-outline-primary edit-btn"
+                        data-id="3"
+                        data-toggle="modal"
+                        data-target="#editCustomerModal"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary delete-btn"
+                        data-id="3"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Customer Modal -->
+    <div id="addCustomerModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Tambah Pelanggan Baru</h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <form id="addCustomerForm" class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="customerName">Nama Pelanggan</label>
+            <input
+              type="text"
+              id="customerName"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customerPhone">Telepon</label>
+            <input
+              type="text"
+              id="customerPhone"
+              class="form-control phone-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customerAddress">Alamat</label>
+            <textarea
+              id="customerAddress"
+              class="form-control"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customerEmail">Email</label>
+            <input type="email" id="customerEmail" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customerContact"
+              >Kontak Person</label
+            >
+            <input type="text" id="customerContact" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customerStatus">Status</label>
+            <select id="customerStatus" class="form-select">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button class="btn btn-secondary close-modal">Batal</button>
+          <button class="btn btn-accent" id="saveCustomerBtn">Simpan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Customer Modal -->
+    <div id="editCustomerModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Edit Data Pelanggan</h3>
+          <button class="close-modal">&times;</button>
+        </div>
+        <form id="editCustomerForm" class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="editCustomerName"
+              >Nama Pelanggan</label
+            >
+            <input
+              type="text"
+              id="editCustomerName"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editCustomerPhone">Telepon</label>
+            <input
+              type="text"
+              id="editCustomerPhone"
+              class="form-control phone-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editCustomerAddress">Alamat</label>
+            <textarea
+              id="editCustomerAddress"
+              class="form-control"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editCustomerEmail">Email</label>
+            <input type="email" id="editCustomerEmail" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editCustomerContact"
+              >Kontak Person</label
+            >
+            <input type="text" id="editCustomerContact" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="editCustomerStatus">Status</label>
+            <select id="editCustomerStatus" class="form-select">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button class="btn btn-secondary close-modal">Batal</button>
+          <button class="btn btn-accent" id="updateCustomerBtn">
+            Simpan Perubahan
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/modals.js"></script>
+    <script>
+      // Fix for unwanted page reloads
+      // Intercept all link clicks on the page
+      document.addEventListener(
+        "click",
+        function (e) {
+          // Check if the clicked element is a link or inside the sidebar
+          if (
+            e.target.tagName === "A" ||
+            e.target.closest(".sidebar-menu") ||
+            e.target.closest(".menu-item")
+          ) {
+            // Check if we're already on the customers page
+            if (window.location.pathname.includes("customers.html")) {
+              // Only prevent reload if it's a link to the same page
+              const href =
+                e.target.getAttribute("href") ||
+                e.target.closest("a")?.getAttribute("href");
+              if (href && href.includes("customers.html")) {
+                e.preventDefault();
+                console.log("Prevented reload of customers page");
+                return false;
+              }
+            }
+          }
+        },
+        true
+      ); // Use capture phase to catch events before they bubble up
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check user role from localStorage
+        const userRole = localStorage.getItem("ksteel-user-role");
+
+        // Handle UI based on role
+        if (userRole === "sales") {
+          // Hide delete buttons for sales role
+          const deleteButtons = document.querySelectorAll(".delete-btn");
+          deleteButtons.forEach((btn) => {
+            btn.style.display = "none";
+          });
+        } // Add Customer Button - ensure it doesn't cause page reload
+        const addCustomerBtn = document.getElementById("addCustomerBtn");
+        if (addCustomerBtn) {
+          // Remove any existing event listeners
+          const newAddButton = addCustomerBtn.cloneNode(true);
+          addCustomerBtn.parentNode.replaceChild(newAddButton, addCustomerBtn);
+
+          // Transparent overlay to capture clicks
+          const buttonWrapper = document.createElement("div");
+          buttonWrapper.style.position = "relative";
+          buttonWrapper.style.display = "inline-block";
+
+          newAddButton.parentNode.insertBefore(buttonWrapper, newAddButton);
+          buttonWrapper.appendChild(newAddButton);
+
+          newAddButton.addEventListener(
+            "click",
+            function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log("Add Customer button clicked");
+              openModal("addCustomerModal");
+              return false;
+            },
+            true
+          );
+        }
+
+        // Save Customer Button
+        document
+          .getElementById("saveCustomerBtn")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            const form = document.getElementById("addCustomerForm");
+
+            if (validateForm(form)) {
+              // In a real app, you'd send this data to an API
+              alert("Data pelanggan berhasil disimpan!");
+              closeModal("addCustomerModal");
+            }
+          });
+
+        // Edit Customer Buttons - prevent reload when clicking
+        const editButtons = document.querySelectorAll(".edit-btn");
+        editButtons.forEach((btn) => {
+          // Remove existing listeners
+          const newBtn = btn.cloneNode(true);
+          btn.parentNode.replaceChild(newBtn, btn);
+
+          // Add new listener that prevents default behavior
+          newBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const customerId = this.getAttribute("data-id");
+            editCustomer(customerId);
+            return false;
+          });
+        });
+
+        // Update Customer Button
+        document
+          .getElementById("updateCustomerBtn")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            const form = document.getElementById("editCustomerForm");
+
+            if (validateForm(form)) {
+              // In a real app, you'd send this data to an API
+              alert("Data pelanggan berhasil diperbarui!");
+              closeModal("editCustomerModal");
+            }
+          });
+
+        // Delete Customer Buttons
+        const deleteButtons = document.querySelectorAll(".delete-btn");
+        deleteButtons.forEach((btn) => {
+          // Remove existing listeners
+          const newBtn = btn.cloneNode(true);
+          btn.parentNode.replaceChild(newBtn, btn);
+
+          // Add new listener that prevents default behavior
+          newBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const customerId = this.getAttribute("data-id");
+            deleteCustomer(customerId);
+            return false;
+          });
+        });
+      });
+
+      function validateForm(form) {
+        // Simple validation
+        let isValid = true;
+        const inputs = form.querySelectorAll(
+          "input[required], textarea[required], select[required]"
+        );
+
+        inputs.forEach((input) => {
+          if (!input.value.trim()) {
+            isValid = false;
+            input.classList.add("error");
+          } else {
+            input.classList.remove("error");
+          }
+        });
+
+        if (!isValid) {
+          alert("Mohon lengkapi semua field yang diperlukan!");
+        }
+        return isValid;
+      }
+
+      // Function to handle editing a customer
+      function editCustomer(customerId) {
+        // In a real app, you'd fetch customer data from an API
+        // For demo, we'll use some mock data based on the customerId
+        const customerData = {
+          1: {
+            name: "PT Maju Bersama",
+            phone: "021-5553210",
+            address: "Jl. Raya Kelapa Dua No. 10, Jakarta Barat",
+            email: "contact@majubersama.co.id",
+            contactPerson: "Budi Santoso",
+            status: "Active",
+          },
+          2: {
+            name: "CV Abadi Jaya",
+            phone: "022-6784512",
+            address: "Jl. Gatot Subroto 123, Bandung",
+            email: "info@abadijaya.com",
+            contactPerson: "Dewi Lestari",
+            status: "Active",
+          },
+          3: {
+            name: "PT Sejahtera Makmur",
+            phone: "031-8873421",
+            address: "Jl. Panglima Sudirman 88, Surabaya",
+            email: "admin@sejahteramakmur.id",
+            contactPerson: "Ahmad Hidayat",
+            status: "Inactive",
+          },
+        };
+
+        // Get the customer data or use empty values if not found
+        const customer = customerData[customerId] || {
+          name: "",
+          phone: "",
+          address: "",
+          email: "",
+          contactPerson: "",
+          status: "Active",
+        };
+
+        // Populate the edit form
+        document.getElementById("editCustomerName").value = customer.name;
+        document.getElementById("editCustomerPhone").value = customer.phone;
+        document.getElementById("editCustomerAddress").value = customer.address;
+        document.getElementById("editCustomerEmail").value =
+          customer.email || "";
+        document.getElementById("editCustomerContact").value =
+          customer.contactPerson || "";
+        document.getElementById("editCustomerStatus").value = customer.status;
+        // Store the customer ID for the update operation
+        document
+          .getElementById("updateCustomerBtn")
+          .setAttribute("data-id", customerId);
+
+        // Display the modal
+        openModal("editCustomerModal");
+      }
+
+      function deleteCustomer(customerId) {
+        if (confirm("Apakah Anda yakin ingin menghapus pelanggan ini?")) {
+          // In a real app, you'd send a delete request to an API
+          alert(`Pelanggan dengan ID ${customerId} telah dihapus.`);
+          // You would typically remove the row from the table or refresh the data
+        }
+      }
+    </script>
+    <script src="../js/main.js"></script>
+    <!-- <script src="../js/roles.js"></script> -->
+    <script src="../js/page-init.js"></script>
+    <script src="../js/modals.js"></script>
+    <script src="../js/fixCustomersPage.js"></script>
+
+    <script>
+      // Prevent reload when coming back to this page
+      if (
+        window.performance &&
+        window.performance.navigation.type ===
+          window.performance.navigation.TYPE_BACK_FORWARD
+      ) {
+        console.log(
+          "Page loaded via back/forward navigation - preventing refresh"
+        );
+        window.stop();
+      }
+    </script>
+  </body>
+</html>

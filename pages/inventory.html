@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barang & Stok - PT KSteel Nusantara ERP</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="../index.html" class="sidebar-logo">
+                <img src="../images/logo.svg" alt="KSteel Logo">
+                <span>KSteel ERP</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <!-- Menu items will be dynamically populated based on role -->
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-right">
+                <div class="header-icons">
+                    <div class="header-icon">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge">3</div>
+                    </div>
+                    <div class="header-icon">
+                        <i class="fas fa-envelope"></i>
+                        <div class="notification-badge">2</div>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div>
+                        <div class="user-name">Admin KSteel</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                </div>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="page-container">
+            <h1 class="page-title">Barang & Stok</h1>
+            
+            <!-- Search and Filter -->
+            <div class="card">
+                <div class="card-body">
+                    <div style="display: flex; gap: 15px; align-items: flex-end;">
+                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                            <label class="form-label">Cari Barang</label>
+                            <input type="text" class="form-control" placeholder="Cari kode atau nama barang...">
+                        </div>
+                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-select">
+                                <option value="">Semua Kategori</option>
+                                <option value="besi">Besi</option>
+                                <option value="plat">Plat</option>
+                                <option value="pipa">Pipa</option>
+                                <option value="kawat">Kawat</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                            <label class="form-label">Status Stok</label>
+                            <select class="form-select">
+                                <option value="">Semua Status</option>
+                                <option value="high">Cukup</option>
+                                <option value="medium">Hampir Habis</option>
+                                <option value="low">Stok Habis</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary">Filter</button>
+                            <button class="btn btn-secondary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Daftar Barang</h2>
+                    <div>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-file-export"></i> Export
+                        </button>
+                        <button class="btn btn-accent" id="addItemBtn">
+                            <i class="fas fa-plus"></i> Tambah Barang
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table" id="inventoryTable">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Barang</th>
+                                    <th>Stok</th>
+                                    <th>Min. Stok</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>STL-001</td>
+                                    <td>Besi Beton 10mm</td>
+                                    <td>500</td>
+                                    <td>100</td>
+                                    <td><span class="stock-indicator stock-high"></span> Cukup</td>
+                                    <td class="table-actions">
+                                        <button class="btn btn-sm btn-outline-primary view-btn" data-id="1" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="1" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary delete-btn" data-id="1" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-002</td>
+                                    <td>Besi Hollow 4x2</td>
+                                    <td>120</td>
+                                    <td>100</td>
+                                    <td><span class="stock-indicator stock-medium"></span> Hampir Habis</td>
+                                    <td class="table-actions">
+                                        <button class="btn btn-sm btn-outline-primary view-btn" data-id="2" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="2" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary delete-btn" data-id="2" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-003</td>
+                                    <td>Kawat Las 2.6mm</td>
+                                    <td>20</td>
+                                    <td>50</td>
+                                    <td><span class="stock-indicator stock-low"></span> Stok Habis</td>
+                                    <td class="table-actions">
+                                        <button class="btn btn-sm btn-outline-primary view-btn" data-id="3" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="3" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary delete-btn" data-id="3" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-004</td>
+                                    <td>Besi UNP 50x38</td>
+                                    <td>320</td>
+                                    <td>100</td>
+                                    <td><span class="stock-indicator stock-high"></span> Cukup</td>
+                                    <td class="table-actions">
+                                        <button class="btn btn-sm btn-outline-primary view-btn" data-id="4" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="4" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary delete-btn" data-id="4" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>STL-005</td>
+                                    <td>Pipa Besi 2"</td>
+                                    <td>85</td>
+                                    <td>80</td>
+                                    <td><span class="stock-indicator stock-medium"></span> Hampir Habis</td>
+                                    <td class="table-actions">
+                                        <button class="btn btn-sm btn-outline-primary view-btn" data-id="5" title="Lihat Detail"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="5" title="Edit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary delete-btn" data-id="5" title="Hapus"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- Add Item Modal -->
+    <div id="addItemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Tambah Barang Baru</h2>
+                <button class="close-modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form id="addItemForm" class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="itemCode">Kode Barang</label>
+                    <input type="text" id="itemCode" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemName">Nama Barang</label>
+                    <input type="text" id="itemName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemCategory">Kategori</label>
+                    <select id="itemCategory" class="form-select" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="besi">Besi</option>
+                        <option value="plat">Plat</option>
+                        <option value="pipa">Pipa</option>
+                        <option value="kawat">Kawat</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemUnit">Satuan</label>
+                    <select id="itemUnit" class="form-select" required>
+                        <option value="">Pilih Satuan</option>
+                        <option value="pcs">PCS</option>
+                        <option value="btg">Batang</option>
+                        <option value="lbr">Lembar</option>
+                        <option value="rol">Roll</option>
+                        <option value="kg">Kilogram</option>
+                        <option value="mtr">Meter</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemStock">Stok Awal</label>
+                    <input type="number" id="itemStock" class="form-control" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemMinStock">Stok Minimum</label>
+                    <input type="number" id="itemMinStock" class="form-control" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemBuyPrice">Harga Beli</label>
+                    <div style="display: flex; align-items: center;">
+                        <span style="margin-right: 5px;">Rp</span>
+                        <input type="number" id="itemBuyPrice" class="form-control" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemSellPrice">Harga Jual</label>
+                    <div style="display: flex; align-items: center;">
+                        <span style="margin-right: 5px;">Rp</span>
+                        <input type="number" id="itemSellPrice" class="form-control" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemLocation">Lokasi</label>
+                    <input type="text" id="itemLocation" class="form-control" placeholder="Rak/Bin/Area">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="itemDescription">Deskripsi</label>
+                    <textarea id="itemDescription" class="form-control" rows="3"></textarea>
+                </div>            </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Batal</button>
+                <button class="btn btn-accent" id="saveItemBtn">Simpan</button>
+            </div>
+        </div>
+    </div>    <!-- View Item Modal -->
+    <div id="viewItemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Detail Barang</h2>
+                <button class="close-modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+            <div id="itemDetails" style="margin-bottom: 20px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0; width: 120px;">Kode</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemCode">STL-001</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Nama</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemName">Besi Beton 10mm</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Kategori</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemCategory">Besi</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Satuan</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemUnit">Batang</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Stok</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemStock">500</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Min. Stok</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemMinStock">100</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Harga Beli</td>
+                        <td style="padding: 8px 0;">: Rp <span id="viewItemBuyPrice">75.000</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Harga Jual</td>
+                        <td style="padding: 8px 0;">: Rp <span id="viewItemSellPrice">95.000</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Lokasi</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemLocation">Rak B3</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; padding: 8px 0;">Deskripsi</td>
+                        <td style="padding: 8px 0;">: <span id="viewItemDescription">Besi beton diameter 10mm untuk konstruksi</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top: 20px;">
+                <h3 style="margin-bottom: 10px;">Riwayat Pergerakan Stok</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Jenis</th>
+                            <th>Qty</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>20-06-2025</td>
+                            <td>Masuk</td>
+                            <td>200</td>
+                            <td>Pembelian dari PT Baja Prima</td>
+                        </tr>
+                        <tr>
+                            <td>21-06-2025</td>
+                            <td>Keluar</td>
+                            <td>50</td>
+                            <td>Faktur INV-20250001</td>
+                        </tr>
+                        <tr>
+                            <td>22-06-2025</td>
+                            <td>Masuk</td>
+                            <td>100</td>
+                            <td>Pembelian dari PT Steel Indonesia</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn btn-secondary close-modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add Item Button
+            document.getElementById('addItemBtn').addEventListener('click', function() {
+                openModal('addItemModal');
+            });
+            
+            // View Item Buttons
+            const viewButtons = document.querySelectorAll('.view-btn');
+            viewButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-id');
+                    viewItem(itemId);
+                });
+            });
+              // Modal functionality is now handled by modals.js
+            
+            // Save Item Button
+            document.getElementById('saveItemBtn').addEventListener('click', function() {
+                const form = document.getElementById('addItemForm');
+                
+                if (validateForm(form)) {                    // In a real app, you'd send this data to an API
+                    alert('Data barang berhasil disimpan!');
+                    closeModal('addItemModal');
+                }
+            });
+            
+            // Delete Item Buttons
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-id');
+                    deleteItem(itemId);
+                });
+            });
+        });
+        
+        function validateForm(form) {
+            // Simple validation
+            let isValid = true;
+            const inputs = form.querySelectorAll('input[required], select[required]');
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+            
+            if (!isValid) {
+                alert('Mohon lengkapi semua field yang diperlukan!');
+            }
+            
+            return isValid;
+        }
+          function viewItem(id) {
+            // In a real app, you'd fetch item data from an API
+            openModal('viewItemModal');
+        }
+        
+        function deleteItem(id) {
+            if (confirm('Anda yakin ingin menghapus data barang ini?')) {
+                console.log(`Deleting item with ID: ${id}`);
+                // In a real app, you'd make an API call to delete
+                
+                // For demo, just remove the row
+                const row = document.querySelector(`.delete-btn[data-id="${id}"]`).closest('tr');                row.remove();
+            }
+        }
+    </script>
+      <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script src="../js/modals.js"></script>
+    <script src="../js/roles.js"></script>
+    <script src="../js/page-init.js"></script>
+</body>
+</html>
